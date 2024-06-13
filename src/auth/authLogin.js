@@ -6,7 +6,10 @@ export const authLogin = async (email, password) => {
 
     if (error) throw error;
 
-    return data.session.access_token;
+    return {
+      access_token: data.session.access_token,
+      refresh_token: data.session.refresh_token,
+    };
   } catch (err) {
     console.error("Error during email/password login", err.message);
     throw err;
@@ -16,7 +19,7 @@ export const authLogin = async (email, password) => {
 export const googleLoginUrl = async () => {
   try {
     const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
+      provider: "google",
     });
 
     if (error) throw error;
