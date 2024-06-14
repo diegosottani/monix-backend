@@ -5,10 +5,10 @@ export const put_user_goals = async (req, res) => {
     const id = req.params.id;
     const updatedgoal = {
         user_id: req.user.id,
-        objetivo: req.body.objetivo,
-        valor_inicial: req.body.valor_inicial,
-        prazo: req.body.prazo,
-        valor_desejado: req.body.valor_desejado
+        name: req.body.name,
+        initial_value: req.body.initial_value,
+        deadline: req.body.deadline,
+        desired_value: req.body.desired_value
     };
 
     const { error } = await supabase

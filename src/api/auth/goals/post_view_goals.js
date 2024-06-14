@@ -14,19 +14,19 @@ export const get_goals_info = async (req, res) => {
     const goalsInfo = [];
 
     goals.forEach(goal => {
-      const { objetivo, valor_inicial, prazo, valor_desejado } = goal;
+      const { name, initial_value, deadline, desired_value } = goal;
 
       const currentDate = new Date();
-      const deadline = new Date(prazo);
-      const monthsLeft = Math.max(0, (deadline.getFullYear() - currentDate.getFullYear()) * 12 + deadline.getMonth() - currentDate.getMonth());
+      const deadlineDate = new Date(deadline);
+      const monthsLeft = Math.max(0, (deadlineDate.getFullYear() - currentDate.getFullYear()) * 12 + deadlineDate.getMonth() - currentDate.getMonth());
 
-      const idealDeposit = monthsLeft > 0 ? Math.max(0, (valor_inicial - valor_desejado) / monthsLeft) : 0;
+      const idealDeposit = monthsLeft > 0 ? Math.max(0, (initial_value - desired_value) / monthsLeft) : 0;
 
       const goalInfo = {
-        'descrição do objetivo': objetivo,
-        'saldo inicial': valor_inicial,
-        'saldo desejado': valor_desejado,
-        'prazo final': prazo,
+        'descrição do objetivo': name,
+        'saldo inicial': initial_value,
+        'saldo desejado': desired_value,
+        'deadline final': deadline,
         'meses faltantes': monthsLeft,
         'valor ideal para depositar no mês': idealDeposit
       };

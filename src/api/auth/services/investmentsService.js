@@ -10,10 +10,10 @@ export const getInvestments = async (userId) => {
       user_id,
       goal_id (
         id,
-        objetivo,
-        valor_inicial,
-        prazo,
-        valor_desejado
+        name,
+        initial_value,
+        deadline,
+        desired_value
       ),
       category_id (
         id,

@@ -2,10 +2,10 @@ import { supabase } from '../../../init';
 
 export const post_user_goals = async (req, res) => {
   try {
-    if (!req.body.objetivo 
-      || !req.body.valor_inicial
-      || !req.body.prazo 
-      || !req.body.valor_desejado
+    if (!req.body.name 
+      || !req.body.initial_value
+      || !req.body.deadline 
+      || !req.body.desired_value
     ) {
       res.status(400).json({ error: 'É necessário preencher todos os campos' });
       return;
@@ -14,14 +14,14 @@ export const post_user_goals = async (req, res) => {
       .from('goals')
       .insert({
         user_id: req.user.id,
-        objetivo: req.body.objetivo,
-        valor_inicial: req.body.valor_inicial,
-        prazo: req.body.prazo,
-        valor_desejado: req.body.valor_desejado
+        name: req.body.name,
+        initial_value: req.body.initial_value,
+        deadline: req.body.deadline,
+        desired_value: req.body.desired_value
       });
       if (error) throw error;
 
-    res.status(200).send("Objetivo criada com sucesso");
+    res.status(200).send("Objetivo criado com sucesso");
   } catch (error) {
     console.error('Erro ao criar objetivo:', error);
     res.status(500).json({ error: 'Erro ao criar objetivo' });

@@ -7,10 +7,10 @@ export const get_user_goals = async (req, res) => {
       .select(`
         id,
         user_id,
-        objetivo,
-        valor_inicial,
-        prazo,
-        valor_desejado
+        name,
+        initial_value,
+        deadline,
+        desired_value
       `)
       .eq("user_id", req.user.id);
 
