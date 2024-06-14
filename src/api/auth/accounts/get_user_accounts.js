@@ -4,7 +4,9 @@ export const get_accounts = async (req, res) => {
   try {
     const { data, error } = await supabase
       .from('accounts')
-      .select('*');
+      .select('*')
+      .eq("user_id", req.user.id)
+      .eq("active", req.params.active)
 
     if (error) throw error;
 

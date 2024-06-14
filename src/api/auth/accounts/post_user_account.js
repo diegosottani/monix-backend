@@ -2,19 +2,17 @@ import { supabase } from '../../../init';
 
 export const post_account = async (req, res) => {
   try {
-    const { user_id, name } = req.body;
-
-    if (!user_id || !name) {
-      return res.status(400).json({ error: 'Os campos user_id e name são obrigatórios' });
+    if (!req.body.name) {
+      return res.status(400).json({ error: 'O nome da conta é obrigatório' });
     }
 
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from('accounts')
-      .insert([{ user_id, name }]);
+      .insert({ user_id: req.user.id, name: req.body.name });
 
     if (error) throw error;
 
-    res.status(201).json({ message: 'Conta criada com sucesso', data });
+    res.status(201).json('Conta criada com sucesso');
   } catch (error) {
     console.error('Erro ao criar conta:', error);
     res.status(500).json({ error: 'Erro ao criar conta' });
