@@ -7,6 +7,7 @@ export const get_user_categories = async (req, res) => {
     .from('categories')
     .select('*')
     .eq('user_id', req.user.id)
+    .eq("type_category", req.params.type);
 
     res.status(200).send(data)
   } catch (error) {

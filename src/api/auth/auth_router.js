@@ -76,7 +76,7 @@ auth_router.put('/user/accounts/:id', put_account)
 auth_router.delete('/user/accounts/:id', delete_account)
 auth_router.get('/user/goals_info', get_goals_info)
 //categories
-auth_router.get('/user/categories', get_user_categories)
+auth_router.get('/user/categories/:type', get_user_categories)
 auth_router.post('/user/categories', post_user_category)
 auth_router.put('/user/categories/:id', put_user_category)
 auth_router.delete('/user/categories/:id', delete_user_category)
