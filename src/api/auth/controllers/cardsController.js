@@ -39,9 +39,9 @@ export const put_user_cards = async (req, res) => {
 
     if (
       !req.body.name ||
-      !req.body.dia_fechamento ||
-      !req.body.dia_vencimento ||
-      !req.body.limite
+      !req.body.closing_day ||
+      !req.body.due_day ||
+      !req.body.limit
     ) {
       return res
         .status(400)
