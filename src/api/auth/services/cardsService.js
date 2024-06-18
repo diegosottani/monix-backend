@@ -1,6 +1,6 @@
 import { supabase } from "../../../init";
 
-export const getUserCards = async (userId) => {
+export const getUserCards = async (userId, active) => {
   try {
     const { data, error } = await supabase
       .from("cards")
@@ -9,12 +9,13 @@ export const getUserCards = async (userId) => {
         id,
         user_id,
         name,
-        dia_fechamento,
-        dia_vencimento,
-        limite      
+        closing_day,
+        due_day,
+        limit      
         `
       )
-      .eq("user_id", userId);
+      .eq("user_id", userId)
+      .eq("active", active);
 
     if (error) throw error;
     return { data };
@@ -28,9 +29,9 @@ export const createUserCard = async (userId, cardData) => {
     const { error } = await supabase.from("cards").insert({
       user_id: userId,
       name: cardData.name,
-      dia_fechamento: cardData.dia_fechamento,
-      dia_vencimento: cardData.dia_vencimento,
-      limite: cardData.limite,
+      closing_day: cardData.closing_day,
+      due_day: cardData.due_day,
+      limit: cardData.limit,
       active: true,
     });
 
@@ -45,10 +46,10 @@ export const updateUserCard = async (id, cardData) => {
   try {
     const updatedCard = {
       name: cardData.name,
-      dia_fechamento: cardData.dia_fechamento,
-      dia_vencimento: cardData.dia_vencimento,
-      limite: cardData.limite,
-      active: true,
+      closing_day: cardData.closing_day,
+      due_day: cardData.due_day,
+      limit: cardData.limit,
+      active: cardData.active,
     };
 
     const { error } = await supabase

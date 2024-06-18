@@ -139,7 +139,7 @@ auth_router.post('/user/members', post_members)
 auth_router.put('/user/members/:id', put_members)
 auth_router.delete('/user/members/:id', delete_members)
 //cards
-auth_router.get('/user/cards', get_user_cards)
+auth_router.get('/user/cards/:active', get_user_cards)
 auth_router.post('/user/cards', post_user_cards)
 auth_router.put('/user/cards/:id', put_user_cards)
 auth_router.delete('/user/cards/:id', delete_user_cards)

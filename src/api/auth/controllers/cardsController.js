@@ -7,7 +7,7 @@ import {
 
 export const get_user_cards = async (req, res) => {
   try {
-    const { data, error } = await getUserCards(req.user.id);
+    const { data, error } = await getUserCards(req.user.id, req.params.active);
     if (error) throw error;
 
     res.status(200).send(data);
