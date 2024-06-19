@@ -1,12 +1,12 @@
 import { createAuthUser } from './../auth/createAuthUser.js';
 import { createDbUser } from './../database/createDbUser.js';
 import { checkEmailRecords } from '../database/checkEmailRecords.js';
+import { createTypeExpenses } from '../database/createTypeExpenses.js';
 
 export const post_signup =  async (req, res) => {
   //não obrigatórios
   let { phone, rg, cpf, profession, organ_issuer, post_code, address, birth_date } = req.body;
 
-  console.log(req.body);
   //obrigatórios
   let {email, password, name} = req.body;
 
@@ -25,8 +25,8 @@ export const post_signup =  async (req, res) => {
 
     // 2. Insere novo usuário na tabela Users do supabase
     let userData = { id: authId, email, name, phone, rg, cpf, profession, organ_issuer, post_code, address, birth_date };
-    console.log(userData);
     const user = await createDbUser(userData);
+    await createTypeExpenses({ user_id: authId });
 
     res.status(200).send("Usuário cadastro com sucesso", user);
     
