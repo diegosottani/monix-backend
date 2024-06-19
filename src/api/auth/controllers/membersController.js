@@ -24,16 +24,16 @@ export const post_members = async (req, res) => {
     if (!req.body.name) {
       res
         .status(400)
-        .json({ error: "O nome do membro da familia é obrigatório" });
+        .json({ error: "O nome do membro da família é obrigatório" });
     }
 
     const { error } = await createMember(req.user.id, req.body);
     if (error) throw error;
 
-    res.status(200).send("Membro da familia cadastrado com sucesso");
+    res.status(200).send("Membro da família cadastrado com sucesso");
   } catch (error) {
-    console.error("Erro ao cadastrar membro familiar :", error);
-    res.status(500).json({ error: "Erro ao recuperar os dados" });
+    console.error("Erro ao cadastrar membro familiar:", error);
+    res.status(500).json({ error: "Erro ao recuperar dados do membro familiar" });
   }
 };
 
@@ -42,16 +42,16 @@ export const put_members = async (req, res) => {
     const id = req.params.id;
 
     if (!req.body.name) {
-      return res.status(400).json({ error: "O nome é obrigatório" });
+      return res.status(400).json({ error: "O nome do membro da família é obrigatório" });
     }
 
     const { error } = await updateMember(id, req.body);
     if (error) throw error;
 
-    res.status(200).send("Membro atualizado com sucesso");
+    res.status(200).send("Membro familiar atualizado com sucesso");
   } catch (error) {
-    console.error("Erro ao atualizar o membro:", error);
-    res.status(500).json({ error: "Erro ao atualizar o membro" });
+    console.error("Erro ao atualizar o membro familiar:", error);
+    res.status(500).json({ error: "Erro ao atualizar dados do membro familiar" });
   }
 };
 
@@ -62,9 +62,9 @@ export const delete_members = async (req, res) => {
     const { error } = await deleteMember(id);
     if (error) throw error;
 
-    res.status(200).send("Membro deletado com sucesso");
+    res.status(200).send("Membro familiar excluído com sucesso");
   } catch (error) {
-    console.error("Erro ao deletar o membro:", error);
-    res.status(500).json({ error: "Erro ao deletar o membro" });
+    console.error("Erro ao excluir membro familiar:", error);
+    res.status(500).json({ error: "Erro ao deletar o membro familiar" });
   }
 };
