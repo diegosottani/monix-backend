@@ -5,17 +5,19 @@ export const get_user_incomings = async (req, res) => {
     const { data, error } = await supabase
       .from('incomings')
       .select(`
-      id,
-      user_id,
-      date,
-      value,
-      member_id (id, name),
-      frequency,
-      category_id (id, name),
-      subcategory_id (id, name),
-      description,
-        payments,
-        status
+        id,
+        user_id,
+        date,
+        value,
+        member_id (id, name),
+        frequency,
+        category_id (id, name),
+        subcategory_id (id, name),
+        description,
+        account_id,
+        status,
+        periodicity,
+        quantity
     `)
       .eq('user_id', req.user.id);
 

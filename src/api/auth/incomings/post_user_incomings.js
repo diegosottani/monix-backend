@@ -4,12 +4,11 @@ export const post_user_incomings = async (req, res) => {
   try {
     if (!req.body.date
       || !req.body.value 
-      || !req.body.member_id
+      || !req.body.member
       || !req.body.frequency 
-      || !req.body.category_id
-      || !req.body.subcategory_id
+      || !req.body.category
       || !req.body.description
-      || !req.body.payments
+      || !req.body.account
       || !req.body.status
     ) {
       res.status(400).json({ error: 'É necessário preencher todos os campos' });
@@ -21,13 +20,15 @@ export const post_user_incomings = async (req, res) => {
         user_id: req.user.id,
         date: req.body.date,
         value: req.body.value,
-        member_id: req.body.member_id,
+        member_id: req.body.member,
         frequency: req.body.frequency,
-        category_id: req.body.category_id,
-        subcategory_id: req.body.subcategory_id,
+        category_id: req.body.category,
+        subcategory_id: req.body.subcategory || null,
         description: req.body.description,
-        payments: req.body.payments,
-        status: req.body.status
+        account_id: req.body.account,
+        status: req.body.status,
+        periodicity: req.body.periodicity || null,
+        quantity: req.body.quantity || null
       });
     if (error) throw error;
 
