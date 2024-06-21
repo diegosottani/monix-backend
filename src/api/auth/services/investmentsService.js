@@ -19,10 +19,6 @@ export const getInvestments = async (userId) => {
         id,
         name
       ),
-      subcategory_id (
-        id,
-        name
-      ),
       member_id (
         id,
         name
@@ -31,15 +27,10 @@ export const getInvestments = async (userId) => {
         id, 
         name
       ),
-      investments_type_id (
-        id,
-        name
-      ),
       date,
       value,
-      planner,
       description,
-      frequency      
+      status      
       `
       )
       .eq("user_id", userId);
@@ -55,17 +46,14 @@ export const createInvestment = async (userId, investmentData) => {
   try {
     const { error } = await supabase.from("investments").insert({
       user_id: userId,
-      goal_id: investmentData.goal_id,
-      category_id: investmentData.category_id,
-      subcategory_id: investmentData.subcategory_id,
-      member_id: investmentData.member_id,
-      account_id: investmentData.account_id,
-      investments_type_id: investmentData.investments_type_id,
+      goal_id: investmentData.goal,
+      category_id: investmentData.category,
+      member_id: investmentData.member,
+      account_id: investmentData.account,
       date: investmentData.date,
       value: investmentData.value,
-      planner: investmentData.planner,
+      status: investmentData.status,
       description: investmentData.description,
-      frequency: investmentData.frequency,
     });
 
     if (error) throw error;
@@ -78,23 +66,17 @@ export const createInvestment = async (userId, investmentData) => {
 export const updateInvestment = async (id, investmentData) => {
   try {
     const updatedInvestment = {
-      goal_id: investmentData.goal_id,
-      category_id: investmentData.category_id,
-      subcategory_id: investmentData.subcategory_id,
-      member_id: investmentData.member_id,
-      account_id: investmentData.account_id,
-      investments_type_id: investmentData.investments_type_id,
+      goal_id: investmentData.goal,
+      category_id: investmentData.category,
+      member_id: investmentData.member,
+      account_id: investmentData.account,
       date: investmentData.date,
       value: investmentData.value,
-      planner: investmentData.planner,
+      status: investmentData.status,
       description: investmentData.description,
-      frequency: investmentData.frequency,
     };
 
-    const { error } = await supabase
-      .from("investments")
-      .update(updatedInvestment)
-      .eq("id", id);
+    const { error } = await supabase.from("investments").update(updatedInvestment).eq("id", id);
 
     if (error) throw error;
     return {};

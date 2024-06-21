@@ -20,15 +20,14 @@ export const get_investments = async (req, res) => {
 export const post_investments = async (req, res) => {
   try {
     if (
-      !req.body.goal_id ||
-      !req.body.category_id ||
-      !req.body.subcategory_id ||
-      !req.body.member_id ||
-      !req.body.account_id ||
-      !req.body.investments_type_id ||
+      !req.body.goal ||
+      !req.body.category ||
+      !req.body.member ||
+      !req.body.account ||
       !req.body.date ||
       !req.body.value ||
-      !req.body.description
+      !req.body.description ||
+      !req.body.status
     ) {
       res.status(400).json({ error: "Todos os campos são obrigatórios" });
     }
@@ -47,7 +46,16 @@ export const put_investments = async (req, res) => {
   try {
     const id = req.params.id;
 
-    if (!req.body.date || !req.body.value || !req.body.description) {
+    if (
+      !req.body.goal ||
+      !req.body.category ||
+      !req.body.member ||
+      !req.body.account ||
+      !req.body.date ||
+      !req.body.value ||
+      !req.body.description ||
+      !req.body.status
+    ) {
       res.status(400).json({ error: "Todos os campos são obrigatórios" });
     }
 
