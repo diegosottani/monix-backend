@@ -23,14 +23,14 @@ export const get_user_expenses = async (req, res) => {
           id, 
           name
         ),
-        expense_type_id (
-          id,
-          name
-        ),
+        expense_type,
         date,
         value,
         description,
-        frequency
+        frequency,
+        periodicity,
+        quantity,
+        status
       `)
       .eq('user_id', req.user.id);
 

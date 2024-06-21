@@ -7,13 +7,16 @@ export const put_user_expenses = async (req, res) => {
       user_id: req.user.id,
       date: req.body.date,
       value: req.body.value,
+      member_id: req.body.member,
       frequency: req.body.frequency,
-      category_id: req.body.category_id,
-      subcategory_id: req.body.subcategory_id,
-      member_id: req.body.member_id,
-      account_id: req.body.account_id,
-      expense_type_id: req.body.expense_type_id,
-      description: req.body.description
+      periodicity: req.body.periodicity,
+      quantity: req.body.quantity,
+      category_id: req.body.category,
+      subcategory_id: req.body.subcategory,
+      expense_type: req.body.expenseType,
+      description: req.body.description,
+      account_id: req.body.account,
+      status: req.body.status,
     };
 
     const { error } = await supabase
