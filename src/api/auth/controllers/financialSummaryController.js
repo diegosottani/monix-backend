@@ -3,8 +3,8 @@ import { getFinancialSummary } from "../services/financialSummaryService";
 export const get_financial_summary = async (req, res) => {
   try {
     const userId = req.user.id;
-    const startDate = req.query.start_date || "2024-01-01";
-    const endDate = req.query.end_date || "2024-12-31";
+    const startDate = req.query.start_date;
+    const endDate = req.query.end_date;
 
     const summary = await getFinancialSummary(userId, startDate, endDate);
 
