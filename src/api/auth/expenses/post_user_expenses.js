@@ -1,4 +1,5 @@
 import { supabase } from '../../../init';
+import { calculateNextDate } from '../../../utils/calculateNextDate';
 
 export const post_user_expenses = async (req, res) => {
   try {
@@ -15,9 +16,32 @@ export const post_user_expenses = async (req, res) => {
     ) {
       res.status(400).json({ error: 'É necessário preencher todos os campos' });
     }
-    let query = await supabase 
-      .from('expenses')
-      .insert({
+
+    const entries = [];
+
+    if(periodicity && quantity){
+      let currentDate = new Date(req.body.date);
+  
+      for (let i = 0; i <= quantity; i++) {
+        entries.push({
+          user_id: req.user.id,
+          date: currentDate.toISOString().split('T')[0], // Formatar a data como yyyy-mm-dd
+          value: req.body.value,
+          member_id: req.body.member,
+          frequency: req.body.frequency,
+          category_id: req.body.category,
+          subcategory_id: req.body.subcategory,
+          expense_type: req.body.expenseType,
+          description: req.body.description,
+          account_id: req.body.account,
+          status: req.body.status,
+          periodicity: req.body.periodicity,
+          quantity: req.body.quantity
+        });
+        currentDate = calculateNextDate(currentDate, periodicity);
+      }
+    } else {
+      entries.push({
         user_id: req.user.id,
         date: req.body.date,
         value: req.body.value,
@@ -32,10 +56,12 @@ export const post_user_expenses = async (req, res) => {
         periodicity: req.body.periodicity,
         quantity: req.body.quantity
       });
-    let error = query["error"]
-    if (error) {
-      throw error;
     }
+
+    const { error } = await supabase.from('expenses').insert(entries);
+
+    if (error) throw error;
+
     res.status(201).send("Despesa criada com sucesso");
   } catch (error) {
     console.error('Erro ao criar despesa:', error);
