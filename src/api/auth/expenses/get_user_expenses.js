@@ -2,6 +2,8 @@ import { supabase } from '../../../init';
 
 export const get_user_expenses = async (req, res) => {
   try {
+    const startDate = req.query.start_date;
+    const endDate = req.query.end_date;
     const { data, error } = await supabase
       .from('expenses')
       .select(`
@@ -32,7 +34,10 @@ export const get_user_expenses = async (req, res) => {
         quantity,
         status
       `)
-      .eq('user_id', req.user.id);
+      .eq('user_id', req.user.id)
+      .gte("date", startDate)
+      .lte("date", endDate)
+      .order("date", { ascending: true });
 
     if (error) {
       throw error;

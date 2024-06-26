@@ -2,6 +2,8 @@ import { supabase } from "../../../init";
 
 export const getInvestments = async (userId) => {
   try {
+    const startDate = req.query.start_date;
+    const endDate = req.query.end_date;
     const { data, error } = await supabase
       .from("investments")
       .select(
@@ -33,7 +35,10 @@ export const getInvestments = async (userId) => {
       status      
       `
       )
-      .eq("user_id", userId);
+      .eq("user_id", userId)
+      .gte("date", startDate)
+      .lte("date", endDate)
+      .order("date", { ascending: true });
 
     if (error) throw error;
     return { data };

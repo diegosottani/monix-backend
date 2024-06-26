@@ -62,6 +62,7 @@ import { post_account } from './accounts/post_user_account';
 import { put_account } from './accounts/put_user_account';
 import { delete_account } from './accounts/delete_user_account';
 import { get_goals_info } from './goals/post_view_goals';
+import { get_releases } from './releases/get_releases';
 
 export const auth_router = express.Router();
 //user
@@ -155,3 +156,4 @@ auth_router.put('/user/incomings/:id', put_user_incomings)
 auth_router.delete('/user/incomings/:id', delete_user_incomings)
 //views
 auth_router.get('/user/financial_summary', get_financial_summary)
+auth_router.get('/user/releases', get_releases)
