@@ -17,10 +17,10 @@ export const post_user_incomings = async (req, res) => {
 
     const entries = [];
 
-    if (periodicity && quantity) {
+    if (req.body.periodicity && req.body.quantity) {
       let currentDate = new Date(req.body.date);
 
-      for (let i = 0; i <= quantity; i++) {
+      for (let i = 0; i <= req.body.quantity; i++) {
         entries.push({
           user_id: req.user.id,
           date: currentDate.toISOString().split("T")[0], // Format date as yyyy-mm-dd
@@ -28,12 +28,12 @@ export const post_user_incomings = async (req, res) => {
           member_id: req.body.member,
           frequency: req.body.frequency,
           category_id: req.body.category,
-          subcategory_id: req.body.subcategory || null,
+          subcategory_id: req.body.subcategory,
           description: req.body.description,
           account_id: req.body.account,
           status: req.body.status,
-          periodicity: req.body.periodicity || null,
-          quantity: req.body.quantity || null
+          periodicity: req.body.periodicity,
+          quantity: req.body.quantity
         });
         currentDate = calculateNextDate(currentDate, periodicity);
       }
@@ -45,12 +45,10 @@ export const post_user_incomings = async (req, res) => {
         member_id: req.body.member,
         frequency: req.body.frequency,
         category_id: req.body.category,
-        subcategory_id: req.body.subcategory || null,
+        subcategory_id: req.body.subcategory,
         description: req.body.description,
         account_id: req.body.account,
         status: req.body.status,
-        periodicity: req.body.periodicity || null,
-        quantity: req.body.quantity || null
       });
     }
 

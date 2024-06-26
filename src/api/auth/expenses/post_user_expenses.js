@@ -19,10 +19,10 @@ export const post_user_expenses = async (req, res) => {
 
     const entries = [];
 
-    if(periodicity && quantity){
+    if (req.body.periodicity && req.body.quantity) {
       let currentDate = new Date(req.body.date);
   
-      for (let i = 0; i <= quantity; i++) {
+      for (let i = 0; i <= req.body.quantity; i++) {
         entries.push({
           user_id: req.user.id,
           date: currentDate.toISOString().split('T')[0], // Formatar a data como yyyy-mm-dd
@@ -53,8 +53,6 @@ export const post_user_expenses = async (req, res) => {
         description: req.body.description,
         account_id: req.body.account,
         status: req.body.status,
-        periodicity: req.body.periodicity,
-        quantity: req.body.quantity
       });
     }
 
