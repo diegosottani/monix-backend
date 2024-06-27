@@ -42,7 +42,7 @@ export const get_user_expenses = async (req, res) => {
     if (error) {
       throw error;
     }
-
+    data.map((item) => (item["type"] = "expenses"));
     res.status(200).send(data);
   } catch (error) {
     console.error('Erro ao recuperar despesas:', error);

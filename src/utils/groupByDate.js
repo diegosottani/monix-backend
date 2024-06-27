@@ -4,6 +4,10 @@ export const groupByDate = (data) => {
     if (!acc[date]) {
       acc[date] = [];
     }
+
+    currentItem['account'] = currentItem.account_id
+    delete currentItem.account_id
+
     acc[date].push(currentItem);
     return acc;
   }, {});

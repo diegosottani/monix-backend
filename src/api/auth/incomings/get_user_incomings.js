@@ -27,7 +27,7 @@ export const get_user_incomings = async (req, res) => {
       .order("date", { ascending: true });
 
     if (error) throw error;
-
+    data.map((item) => (item["type"] = "incomings"));
     res.status(200).json(data);
   } catch (error) {
     console.error('Erro ao buscar entradas:', error);

@@ -9,7 +9,7 @@ export const get_investments = async (req, res) => {
   try {
     const { data, error } = await getInvestments(req.user.id);
     if (error) throw error;
-
+    data.map((item) => (item["type"] = "investments"));
     res.status(200).send(data);
   } catch (error) {
     console.error("Erro ao recuperar investimentos:", error);
