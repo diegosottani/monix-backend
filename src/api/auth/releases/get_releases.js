@@ -3,13 +3,10 @@ import { groupByDate } from "../../../utils/groupByDate";
 
 export const get_releases = async (req, res) => {
   try {
-    const fields = `id, date, description, account_id (name), value`;
+    const fields = `id, date, description, account_id (name), value, type`;
     const incomings = await getData("incomings", fields, req);
     const expenses = await getData("expenses", fields, req);
     const investments = await getData("investments", fields, req);
-    incomings.map((item) => (item["type"] = "incomings"));
-    expenses.map((item) => (item["type"] = "expenses"));
-    investments.map((item) => (item["type"] = "investments"));
     const releases = [...incomings, ...expenses, ...investments];
     const groupReleasesByDate = groupByDate(releases);
 

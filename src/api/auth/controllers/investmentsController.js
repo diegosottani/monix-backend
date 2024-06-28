@@ -4,13 +4,13 @@ import {
   updateInvestment,
   deleteInvestment,
 } from "../services/investmentsService.js";
+import { groupByDate } from "../../../utils/groupByDate";
 
 export const get_investments = async (req, res) => {
   try {
-    const { data, error } = await getInvestments(req.user.id);
+    const { data, error } = await getInvestments(req);
     if (error) throw error;
-    data.map((item) => (item["type"] = "investments"));
-    res.status(200).send(data);
+    res.status(200).send(groupByDate(data));
   } catch (error) {
     console.error("Erro ao recuperar investimentos:", error);
     res.status(500).json({ error: "Erro ao recuperar os investimentos" });

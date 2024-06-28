@@ -1,7 +1,8 @@
 import { supabase } from "../../../init";
 
-export const getInvestments = async (userId) => {
+export const getInvestments = async (req) => {
   try {
+    const userId = req.user.id;
     const startDate = req.query.start_date;
     const endDate = req.query.end_date;
     const { data, error } = await supabase
@@ -32,7 +33,8 @@ export const getInvestments = async (userId) => {
       date,
       value,
       description,
-      status      
+      status,
+      type     
       `
       )
       .eq("user_id", userId)

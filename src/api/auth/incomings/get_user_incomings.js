@@ -1,4 +1,5 @@
 import { supabase } from '../../../init';
+import { groupByDate } from "../../../utils/groupByDate";
 
 export const get_user_incomings = async (req, res) => {
   try {
@@ -19,7 +20,8 @@ export const get_user_incomings = async (req, res) => {
         account_id (id, name),
         status,
         periodicity,
-        quantity
+        quantity,
+        type
     `)
       .eq('user_id', req.user.id)
       .gte("date", startDate)
@@ -27,8 +29,7 @@ export const get_user_incomings = async (req, res) => {
       .order("date", { ascending: true });
 
     if (error) throw error;
-    data.map((item) => (item["type"] = "incomings"));
-    res.status(200).json(data);
+    res.status(200).json(groupByDate(data));
   } catch (error) {
     console.error('Erro ao buscar entradas:', error);
     res.status(500).json({ error: 'Erro ao buscar entradas' });

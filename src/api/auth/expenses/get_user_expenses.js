@@ -1,4 +1,5 @@
 import { supabase } from '../../../init';
+import { groupByDate } from "../../../utils/groupByDate";
 
 export const get_user_expenses = async (req, res) => {
   try {
@@ -32,7 +33,8 @@ export const get_user_expenses = async (req, res) => {
         frequency,
         periodicity,
         quantity,
-        status
+        status,
+        type
       `)
       .eq('user_id', req.user.id)
       .gte("date", startDate)
@@ -42,8 +44,7 @@ export const get_user_expenses = async (req, res) => {
     if (error) {
       throw error;
     }
-    data.map((item) => (item["type"] = "expenses"));
-    res.status(200).send(data);
+    res.status(200).send(groupByDate(data));
   } catch (error) {
     console.error('Erro ao recuperar despesas:', error);
     res.status(500).json({ error: 'Erro ao recuperar despesas' });
