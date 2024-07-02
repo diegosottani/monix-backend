@@ -64,12 +64,13 @@ import { delete_account } from './accounts/delete_user_account';
 import { get_goals_info } from './goals/post_view_goals';
 import { get_releases } from './releases/get_releases';
 import { get_postings_by_category } from './postings/get_postings_by_category';
+import { put_postings_by_category } from './postings/put_postings_by_category';
 
 export const auth_router = express.Router();
 //user
-auth_router.get('/user', get_user)
-auth_router.put('/user/:id', put_user)
-auth_router.delete('/user/:id', delete_user)
+auth_router.get('/user/profile', get_user)
+auth_router.put('/user/profile/:id', put_user)
+auth_router.delete('/user/profile/:id', delete_user)
 //accounts
 auth_router.get('/user/accounts/:active', get_accounts)
 auth_router.get('/user/accounts/:id', get_account_by_id)
@@ -159,3 +160,4 @@ auth_router.delete('/user/incomings/:id', delete_user_incomings)
 auth_router.get('/user/financial_summary', get_financial_summary)
 auth_router.get('/user/releases', get_releases)
 auth_router.get('/user/postings', get_postings_by_category)
+auth_router.put('/user/postings', put_postings_by_category)
