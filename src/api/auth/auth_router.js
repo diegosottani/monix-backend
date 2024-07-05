@@ -63,8 +63,8 @@ import { put_account } from './accounts/put_user_account';
 import { delete_account } from './accounts/delete_user_account';
 import { get_goals_info } from './goals/post_view_goals';
 import { get_releases } from './releases/get_releases';
-import { get_postings_by_category } from './postings/get_postings_by_category';
-import { put_postings_by_category } from './postings/put_postings_by_category';
+import { get_transactions_by_category } from './transactions/get_transactions_by_category';
+import { put_transactions_by_category } from './transactions/put_transactions_by_category';
 
 export const auth_router = express.Router();
 //user
@@ -159,5 +159,6 @@ auth_router.delete('/user/incomings/:id', delete_user_incomings)
 //views
 auth_router.get('/user/financial_summary', get_financial_summary)
 auth_router.get('/user/releases', get_releases)
-auth_router.get('/user/postings', get_postings_by_category)
-auth_router.put('/user/postings', put_postings_by_category)
+//transactions
+auth_router.get('/user/transactions', get_transactions_by_category)
+auth_router.put('/user/transactions', put_transactions_by_category)

@@ -1,10 +1,10 @@
 import { supabase } from "../../../init";
 
-export const get_postings_by_category = async (req, res) => {
+export const get_transactions_by_category = async (req, res) => {
   try {
     const table = req.query.table;
     const category = req.query.category;
-    const subcategory = req.query.subcategory || null;
+    const subcategory = req.query.subcategory;
 
     let query = supabase.from(table).select('*', { count: 'exact', head: true });
     query = query.eq("user_id", req.user.id).eq("category_id", category);

@@ -1,6 +1,6 @@
 import { supabase } from "../../../init";
 
-export const put_postings_by_category = async (req, res) => {
+export const put_transactions_by_category = async (req, res) => {
   try {
     const table = req.query.table;
     const currentCategory = req.query.currentCategory;
@@ -13,7 +13,7 @@ export const put_postings_by_category = async (req, res) => {
     };
 
     Object.keys(updateObject).forEach(key => {
-      if (updateObject[key] === undefined || updateObject[key] === null) {
+      if (updateObject[key] === undefined || updateObject[key] === null || updateObject[key] === "") {
         delete updateObject[key];
       }
     });
