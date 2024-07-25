@@ -65,6 +65,8 @@ import { get_goals_info } from './goals/post_view_goals';
 import { get_releases } from './releases/get_releases';
 import { get_transactions_by_category } from './transactions/get_transactions_by_category';
 import { put_transactions_by_category } from './transactions/put_transactions_by_category';
+import { get_user_goal_deposits } from './goal_deposits/get_user_goal_deposits'
+import { post_user_goal_deposits } from './goal_deposits/post_user_goal_deposits'
 
 export const auth_router = express.Router();
 //user
@@ -98,6 +100,9 @@ auth_router.get('/user/goals', get_user_goals)
 auth_router.post('/user/goals', post_user_goals)
 auth_router.put('/user/goals/:id', put_user_goals)
 auth_router.delete('/user/goals/:id', delete_user_goals)
+//goal_deposits
+auth_router.get('/user/goal_deposits/:id', get_user_goal_deposits)
+auth_router.post('/user/goal_deposits', post_user_goal_deposits)
 //typesofexpenses
 auth_router.get('/user/typeofexpenses', get_user_typeofexpenses)
 auth_router.put('/user/typeofexpenses/:id', put_user_typeofexpenses)
