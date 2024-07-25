@@ -18,9 +18,28 @@ export const get_user_goals = async (req, res) => {
       throw error;
     }
 
-    res.status(200).send(data);
+    const updatedData = await Promise.all(data.map(async goal => ({
+      ...goal,
+      deposits: await getDeposits(goal.id)
+    })));
+
+    res.status(200).send(updatedData);
   } catch (error) {
-    console.error('Erro ao recuperar despesas:', error);
-    res.status(500).json({ error: 'Erro ao recuperar despesas' });
+    console.error('Erro ao recuperar objetivos:', error);
+    res.status(500).json({ error: 'Erro ao recuperar objetivos' });
   }
 };
+
+async function getDeposits(goal_id) {
+  const { data, error } = await supabase
+    .from("goal_deposits")
+    .select("deposit")
+    .eq("goal_id", goal_id);
+
+  if (error) {
+    throw error;
+  }
+  
+  const totalDeposits = data.reduce((acc, item) => acc + item.deposit, 0);
+  return totalDeposits;
+}
