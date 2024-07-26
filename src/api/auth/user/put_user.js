@@ -2,15 +2,15 @@ import { supabase } from '../../../init';
 
 export const put_user = async (req, res) => {
   try {
-    const id = req.params.id;
-    const { name, phone, rg, cpf, profession, organ_issuer, post_code, address, birth_date } = req.body;
+    const id = req.user.id;
+    const { name, phone, rg, cpf, profession, organ_issuer, post_code, address, birth_date, email } = req.body;
 
     if (!name) {
       return res.status(400).json({ error: 'O nome do usuário é obrigatório' });
     }
 
     // Construindo o objeto de atualização com os campos fornecidos no corpo da requisição
-    const updateData = { name, phone, rg, cpf, profession, organ_issuer, post_code, address, birth_date };
+    const updateData = { name, phone, rg, cpf, profession, organ_issuer, post_code, address, birth_date, email };
 
     // Remover campos não definidos (opcionais não enviados)
     Object.keys(updateData).forEach(key => {

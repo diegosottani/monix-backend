@@ -71,8 +71,8 @@ import { post_user_goal_deposits } from './goal_deposits/post_user_goal_deposits
 export const auth_router = express.Router();
 //user
 auth_router.get('/user/profile', get_user)
-auth_router.put('/user/profile/:id', put_user)
-auth_router.delete('/user/profile/:id', delete_user)
+auth_router.put('/user/profile', put_user)
+auth_router.delete('/user/profile', delete_user)
 //accounts
 auth_router.get('/user/accounts/:active', get_accounts)
 auth_router.get('/user/accounts/:id', get_account_by_id)
