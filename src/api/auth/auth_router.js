@@ -21,7 +21,8 @@ import { delete_user_planned_expense } from './planned_expense/delete_user_plann
 import { get_members, post_members, put_members, delete_members } from './controllers/membersController';
 import { get_user_cards, post_user_cards, put_user_cards, delete_user_cards } from './controllers/cardsController';
 import { get_investments, post_investments, put_investments, delete_investments } from './controllers/investmentsController';
-import { get_user_planned_incoming_category_by_planned_incoming_id } from './planned_incoming_category/get_user_planned_incoming_category';
+import { get_user_planned_incoming_category } from './planned_incoming_category/get_user_planned_incoming_category';
+import { get_user_planned_incoming_category_by_id } from './planned_incoming_category/get_user_planned_incoming_category_by_id';
 import { post_user_planned_incoming_category } from './planned_incoming_category/post_user_planned_incoming_category';
 import { put_user_planned_incoming_category } from './planned_incoming_category/put_user_planned_incoming_category';
 import { delete_user_planned_incoming_category } from './planned_incoming_category/delete_user_planned_incoming_category';
@@ -127,7 +128,8 @@ auth_router.post('/user/planned_incoming', post_user_planned_incoming)
 auth_router.put('/user/planned_incoming/:id', put_user_planned_incoming)
 auth_router.delete('/user/planned_incoming/:id', delete_user_planned_incoming)
 //planned_incoming_category
-auth_router.get('/user/planned_incoming_category/:id', get_user_planned_incoming_category_by_planned_incoming_id)
+auth_router.get('/user/planned_incoming_category', get_user_planned_incoming_category)
+auth_router.get('/user/planned_incoming_category/:id', get_user_planned_incoming_category_by_id)
 auth_router.post('/user/planned_incoming_category', post_user_planned_incoming_category)
 auth_router.put('/user/planned_incoming_category/:id', put_user_planned_incoming_category)
 auth_router.delete('/user/planned_incoming_category/:id', delete_user_planned_incoming_category)
