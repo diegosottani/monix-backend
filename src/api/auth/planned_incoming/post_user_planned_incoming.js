@@ -2,25 +2,29 @@ import { supabase } from '../../../init';
 
 export const post_user_planned_incoming = async (req, res) => {
     try {
-        if (!req.body.month
-            || !req.body.year ) {
-            res.status(400).json({ error: 'É necessário preencher todos os campos obrigatórios' });
+        const year = parseInt(req.body.year);
+        
+        if (isNaN(year)) {
+            res.status(400).json({ error: 'É necessário informar o ano' });
             return;
         }
 
-        const { error } = await supabase
-            .from('planned_incoming')
-            .insert({
+        const entries = [];
+        for (let index = 1; index <= 12; index++) {
+            entries.push({
                 user_id: req.user.id,
-                month: req.body.month,
-                year: req.body.year,
-            });
+                month: index,
+                year,
+            })
+        }
+
+        const { error } = await supabase.from('planned_incoming').insert(entries);
 
         if (error) throw error;
 
-        res.status(201).send('Entrada planejada criada com sucesso');
+        res.status(201).send('Planejamento de Entrada criado com sucesso');
     } catch (error) {
         console.error(error.message);
-        res.status(500).json({ error: 'Erro ao criar entrada planejada' });
+        res.status(500).json(error);
     }
 }
