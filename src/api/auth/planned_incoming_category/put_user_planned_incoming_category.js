@@ -2,17 +2,21 @@ import { supabase } from '../../../init';
 
 export const put_user_planned_incoming_category = async (req, res) => {
   try {
-    const planned_incoming_category_id = req.params.id;
-    const updated_planned_incoming_category = {
-      planned_incoming_id: req.body.planned_incoming,
-      category_id: req.body.category_id,
-      value: req.body.value
-    };
+    const planned_incoming_id = req.params.id;
+    const { category_id, value } = req.body;
+
+    if (!planned_incoming_id || !category_id || isNaN(value)) {
+      res.status(400).json({ error: 'É necessário preencher todos os campos' });
+    }
 
     const { error } = await supabase
       .from('planned_incoming_category')
-      .update(updated_planned_incoming_category)
-      .eq('id', planned_incoming_category_id);
+      .update({
+        planned_incoming_id,
+        category_id,
+        value
+      })
+      .eq('id', planned_incoming_id);
 
     if (error) {
       throw error;
@@ -21,6 +25,6 @@ export const put_user_planned_incoming_category = async (req, res) => {
     res.status(200).send("Categoria de entrada planejada atualizada com sucesso");
   } catch (error) {
     console.error('Erro ao atualizar categoria de entrada planejada:', error);
-    res.status(500).json({ error: 'Erro ao atualizar categoria da entrada planejada' });
+    res.status(500).json(error);
   }
 };
