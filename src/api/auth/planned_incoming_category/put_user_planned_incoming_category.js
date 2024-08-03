@@ -2,21 +2,19 @@ import { supabase } from '../../../init';
 
 export const put_user_planned_incoming_category = async (req, res) => {
   try {
-    const planned_incoming_id = req.params.id;
-    const { category_id, value } = req.body;
+    const id = req.params.id;
+    const { value } = req.body;
 
-    if (!planned_incoming_id || !category_id || isNaN(value)) {
+    if (isNaN(value)) {
       res.status(400).json({ error: 'É necessário preencher todos os campos' });
     }
 
     const { error } = await supabase
       .from('planned_incoming_category')
       .update({
-        planned_incoming_id,
-        category_id,
         value
       })
-      .eq('id', planned_incoming_id);
+      .eq('id', id);
 
     if (error) {
       throw error;
