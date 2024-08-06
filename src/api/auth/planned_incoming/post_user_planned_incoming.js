@@ -10,7 +10,8 @@ export const post_user_planned_incoming = async (req, res) => {
         }
 
         const entries = [];
-        for (let index = 1; index <= 12; index++) {
+        // São 13 indexes. Sendo de 1 a 12 para os meses e 0 para ano inteiro.
+        for (let index = 0; index <= 12; index++) {
             entries.push({
                 user_id: req.user.id,
                 month: index,
