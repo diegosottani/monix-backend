@@ -49,7 +49,8 @@ import { post_user_planned_investment } from './planned_investment/post_user_pla
 import { get_user_planned_investment } from './planned_investment/get_user_planned_investment';
 import { put_user_planned_investment } from './planned_investment/put_user_planned_investment';
 import { delete_user_planned_investment } from './planned_investment/delete_user_planned_investment';
-import { get_user_planned_investment_category_by_planned_investment_id } from './planned_investment_category/get_user_planned_investment_category';
+import { get_user_planned_investment_category } from './planned_investment_category/get_user_planned_investment_category';
+import { get_user_planned_investment_category_by_id } from './planned_investment_category/get_user_planned_investment_category_by_id';
 import { post_user_planned_investment_category } from './planned_investment_category/post_user_planned_investment_category';
 import { put_user_planned_investment_category } from './planned_investment_category/put_user_planned_investment_category';
 import { delete_user_planned_investment_category } from './planned_investment_category/delete_user_planned_investment_category';
@@ -139,7 +140,8 @@ auth_router.post('/user/planned_investment', post_user_planned_investment)
 auth_router.put('/user/planned_investment/:id', put_user_planned_investment)
 auth_router.delete('/user/planned_investment/:id', delete_user_planned_investment)
 //planned_investment_category
-auth_router.get('/user/planned_investment_category/:id', get_user_planned_investment_category_by_planned_investment_id)
+auth_router.get('/user/planned_investment_category', get_user_planned_investment_category)
+auth_router.get('/user/planned_investment_category/:id', get_user_planned_investment_category_by_id)
 auth_router.post('/user/planned_investment_category', post_user_planned_investment_category)
 auth_router.put('/user/planned_investment_category/:id', put_user_planned_investment_category)
 auth_router.delete('/user/planned_investment_category/:id', delete_user_planned_investment_category)

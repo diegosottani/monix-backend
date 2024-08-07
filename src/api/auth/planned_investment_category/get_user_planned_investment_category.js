@@ -1,41 +1,21 @@
 import { supabase } from "../../../init";
 
-export const get_user_planned_investment_category_by_planned_investment_id = async (
-  req,
-  res
-) => {
+export const get_user_planned_investment_category = async (req, res) => {
   try {
+    const planned_id = req.query.planned_id;
+    const category_id = req.query.category;
+
     const { data, error } = await supabase
       .from("planned_investment_category")
-      .select(
-        `id,
-         planned_investment_id(
-          id,
-          month,
-          year,
-          user_id (
-            id,
-            name
-          )
-        ),
-         category_id(
-          id,
-          name
-        ),
-         value`
-      )
-      .eq("planned_investment_id", req.params.id);
-    if (error) {
-      throw error;
-    }
+      .select("id, value")
+      .eq("planned_investment_id", planned_id)
+      .eq("category_id", category_id);
+
+    if (error) throw error;
+
     res.status(200).send(data);
   } catch (error) {
-    console.error(
-      "Erro ao acessar os dados de categorias de investimentos:",
-      error
-    );
-    res.status(500).json({
-      error: "Erro ao acessar os dados de categorias de investimentos",
-    });
+    console.log(error);
+    res.status(500).json(error);
   }
 };

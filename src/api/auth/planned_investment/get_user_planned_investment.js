@@ -2,18 +2,30 @@ import { supabase } from '../../../init';
 
 export const get_user_planned_investment = async (req, res) => {
     try {
-        const { data, error } = await supabase
+        const month = parseInt(req.query.month);
+        const year = parseInt(req.query.year);
+        
+        if (isNaN(year)) {
+            res.status(400).json({ error: 'É necessário informar o ano como um número válido' });
+            return;
+        }
+
+        let query = supabase
             .from('planned_investment')
             .select(`
                 id,
-                user_id (
-                    id,
-                    name
-                ),
+                user_id,
                 month,
                 year
             `)
+            .eq('year', year)
             .eq('user_id', req.user.id);
+            
+        if (!isNaN(month) && month !== 0) {
+            query = query.eq('month', month);
+        }
+
+        const { data, error } = await query;
 
         if (error) throw error;
 

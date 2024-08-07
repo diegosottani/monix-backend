@@ -2,20 +2,18 @@ import { supabase } from "../../../init";
 
 export const post_user_planned_investment_category = async (req, res) => {
   try {
-    if (
-      !req.body.planned_investment_id ||
-      !req.body.category_id ||
-      !req.body.value
-    ) {
-      res.status(400).json({ error: "É necessário preencher todos os campos" });
+    const { planned_investment_id, category_id, value } = req.body;
+
+    if (!planned_investment_id || !category_id || isNaN(value)) {
+        res.status(400).json({ error: 'É necessário preencher todos os campos' });
     }
 
     const { error } = await supabase
       .from("planned_investment_category")
       .insert({
-        planned_investment_id: req.body.planned_investment_id,
-        category_id: req.body.category_id,
-        value: req.body.value,
+        planned_investment_id,
+        category_id,
+        value
       });
     if (error) {
       throw error;
