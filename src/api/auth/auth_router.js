@@ -121,10 +121,10 @@ auth_router.post('/user/planned_expense_category', post_user_planned_expense_cat
 auth_router.put('/user/planned_expense_category/:id', put_user_planned_expense_category)
 auth_router.delete('/user/planned_expense_category/:id', delete_user_planned_expense_category)
 //planned_expenses_subcategory
-auth_router.get('/user/planned_expenses_subcategory/:id', get_user_planned_expense_subcategory_by_planned_expense_category_id)
-auth_router.post('/user/planned_expenses_subcategory', post_user_planned_expense_subcategory)
-auth_router.put('/user/planned_expenses_subcategory/:id', put_user_planned_expense_subcategory)
-auth_router.delete('/user/planned_expenses_subcategory/:id', delete_user_planned_expense_subcategory)
+auth_router.get('/user/planned_expense_subcategory/:id', get_user_planned_expense_subcategory_by_planned_expense_category_id)
+auth_router.post('/user/planned_expense_subcategory', post_user_planned_expense_subcategory)
+auth_router.put('/user/planned_expense_subcategory/:id', put_user_planned_expense_subcategory)
+auth_router.delete('/user/planned_expense_subcategory/:id', delete_user_planned_expense_subcategory)
 //planned_incoming
 auth_router.get('/user/planned_incoming', get_user_planned_incoming)
 auth_router.post('/user/planned_incoming', post_user_planned_incoming)

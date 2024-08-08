@@ -2,20 +2,17 @@ import { supabase } from '../../../init';
 
 export const put_user_planned_expense_subcategory = async (req, res) => {
     try {
-        const planned_expense_subcategory_id = req.params.id;
-
-        if (!planned_expense_subcategory_id) {
-            res.status(400).json({ error: 'O id da subcategoria de despesa planejada é obrigatório' });
-        }
+        const id = req.params.id;
+        const { value } = req.body;
         
-        const updated_planned_expense_subcategory = {
-            value: req.body.value
-        }
+        if (isNaN(value)) {
+            res.status(400).json({ error: 'É necessário preencher todos os campos' });
+        }        
 
         const { error } = await supabase
             .from('planned_expense_subcategory')
-            .update(updated_planned_expense_subcategory)
-            .eq('id', planned_expense_subcategory_id);
+            .update({ value })
+            .eq('id', id);
 
         if (error) {
             throw error;
