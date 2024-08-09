@@ -2,6 +2,13 @@ import { supabase } from '../../../init';
 
 export const get_user_planned_expense_subcategory_by_planned_expense_category_id = async (req, res) => {
     try {
+        const subcategory_id = req.query.subcategory;
+        
+        if (!subcategory_id) {
+            res.status(400).json({ error: 'É necessário informar subcategory_id' });
+            return;
+        }
+
         const {data, error} = await supabase
         .from('planned_expense_subcategory')
         .select(`
@@ -21,6 +28,11 @@ export const get_user_planned_expense_subcategory_by_planned_expense_category_id
             value
         `)
         .eq('planned_expense_category_id', req.params.id)
+        .eq('subcategory_id', subcategory_id);
+
+        if (error) {
+            throw error;
+        }
 
         res.status(200).send(data);
     } catch (error) {
