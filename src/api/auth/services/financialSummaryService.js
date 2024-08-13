@@ -13,6 +13,8 @@ const calculateTotals = (records, key) =>
 
 export const getFinancialSummary = async (userId, startDate, endDate) => {
   try {
+    const [year, month] = startDate.split('-');
+    
     const { data: incomings, error: incomingsError } = await supabase
       .from("incomings")
       .select("*")
@@ -47,7 +49,8 @@ export const getFinancialSummary = async (userId, startDate, endDate) => {
           "id, user_id, year, planned_incoming_category (category_id, value)"
         )
         .eq("user_id", userId)
-        .eq("year", 2024);
+        .eq("month", month)
+        .eq("year", year);
 
     if (plannedIncomingsError) throw plannedIncomingsError;
 
@@ -58,7 +61,8 @@ export const getFinancialSummary = async (userId, startDate, endDate) => {
           "id, user_id, year, planned_expense_category (category_id, value)"
         )
         .eq("user_id", userId)
-        .eq("year", 2024);
+        .eq("month", month)
+        .eq("year", year);
 
     if (plannedExpensesError) throw plannedExpensesError;
 
@@ -69,7 +73,8 @@ export const getFinancialSummary = async (userId, startDate, endDate) => {
           "id, user_id, year, planned_investment_category (category_id, value)"
         )
         .eq("user_id", userId)
-        .eq("year", 2024);
+        .eq("month", month)
+        .eq("year", year);
 
     if (plannedInvestmentsError) throw plannedInvestmentsError;
 
