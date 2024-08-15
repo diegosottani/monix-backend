@@ -3,9 +3,9 @@ import { supabase } from '../../../init';
 export const post_user_goals = async (req, res) => {
   try {
     if (!req.body.name 
-      || !req.body.initial_value
+      || isNaN(req.body.initial_value)
       || !req.body.deadline 
-      || !req.body.desired_value
+      || isNaN(req.body.desired_value)
     ) {
       res.status(400).json({ error: 'É necessário preencher todos os campos' });
       return;
