@@ -1,5 +1,6 @@
 import { supabase } from '../../../init';
 import { calculateNextDate } from '../../../utils/calculateNextDate';
+import { untilEndYear } from '../../../utils/untilEndYear';
 
 export const post_user_expenses = async (req, res) => {
   try {
@@ -39,6 +40,26 @@ export const post_user_expenses = async (req, res) => {
           quantity: req.body.quantity
         });
         currentDate = calculateNextDate(currentDate, periodicity);
+      }
+    } else if (req.body.frequency == "Fixo mensal") {
+      let currentDate = new Date(req.body.date);
+      
+      for (let i = 0; i <= untilEndYear(currentDate); i++) {
+        entries.push({
+          user_id: req.user.id,
+          date: currentDate.toISOString().split("T")[0], // Format date as yyyy-mm-dd
+          value: req.body.value,
+          member_id: req.body.member,
+          frequency: req.body.frequency,
+          category_id: req.body.category,
+          subcategory_id: req.body.subcategory,
+          description: req.body.description,
+          account_id: req.body.account,
+          status: req.body.status,
+          periodicity: req.body.periodicity,
+          quantity: req.body.quantity
+        });
+        currentDate = calculateNextDate(currentDate, "Mensal");
       }
     } else {
       entries.push({
