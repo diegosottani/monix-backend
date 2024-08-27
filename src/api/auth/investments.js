@@ -1,4 +1,5 @@
 import { supabase } from "../../init";
+import { groupByDate } from "../../utils/groupByDate"
 
 export const get_investments = async (req, res) => {
   try {
