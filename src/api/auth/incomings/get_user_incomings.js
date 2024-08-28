@@ -15,7 +15,6 @@ export const get_user_incomings = async (req, res) => {
         member_id (id, name),
         frequency,
         category_id (id, name),
-        subcategory_id (id, name),
         description,
         account_id (id, name),
         status,

@@ -10,7 +10,6 @@ export const put_user_incomings = async (req, res) => {
         member_id: req.body.member,
         frequency: req.body.frequency,
         category_id: req.body.category,
-        subcategory_id: req.body.subcategory,
         description: req.body.description,
         account_id: req.body.account,
         status: req.body.status,
