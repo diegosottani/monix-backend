@@ -46,6 +46,36 @@ export const createOtherExpenses = async (userID) => {
   }
 };
 
+export const createOtherExpensesSubcategory = async (userID) => {
+  try {
+    const categoryID = await getDefaultCategoryId(userID)
+    const { data, error } = await supabase
+      .from("subcategories")
+      .insert({ user_id: userID, name: "Outras subcategorias", category_id: categoryID });
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (err) {
+    console.error("Error creating user", err);
+    throw err;
+  }
+};
+
+const getDefaultCategoryId = async () => {
+  try {
+    const { data, error } = await supabase.from("categories").select("id").eq("name", "Outras despesas");
+
+    if (error) throw error;
+
+    return data;
+  } catch (err) {
+    console.error("Error creating user", err);
+    throw err;
+  }
+};
+
 export const createOtherInvestments = async (userID) => {
   try {
     const { data, error } = await supabase
@@ -67,6 +97,22 @@ export const createOtherAccounts = async (userID) => {
     const { data, error } = await supabase
       .from("accounts")
       .insert({ user_id: userID, name: "Outras contas" });
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (err) {
+    console.error("Error creating user", err);
+    throw err;
+  }
+};
+
+export const createOtherMembers = async (userID) => {
+  try {
+    const { data, error } = await supabase
+      .from("members")
+      .insert({ user_id: userID, name: "Outros membros" });
     if (error) {
       throw error;
     }
