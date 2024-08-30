@@ -9,7 +9,7 @@ export const post_login = async (req, res) => {
       const jwt = await authLogin(email, password);
       res.status(200).json(jwt);
     } catch (error) {
-      res.status(400).send("Falha no login");
+      res.status(400).send("Credenciais inválidas");
     }
   } else {
     res.status(400).send("Email e senha são necessários para login");

@@ -18,7 +18,7 @@ export const post_signup =  async (req, res) => {
     const emailExists = await checkEmailRecords(email);
 
     if (emailExists.length > 0) {
-      return res.status(400).json({ error: 'Email já cadastrado' });
+      return res.status(400).send('Email já cadastrado');
     }
     // 1. Insere novo usuário na Auth do supabase
     let authId = await createAuthUser(email, password, name);
@@ -39,10 +39,6 @@ export const post_signup =  async (req, res) => {
     res.status(200).send("Usuário cadastro com sucesso", user);
     
   } catch (error) {
-    if (error.message.includes('Email já cadastrado')) {
-      res.status(400).json({ error: 'Email já cadastrado' });
-    } else {
-      res.status(400).send("Falha ao cadastrar usuário: " + error.message);
-    }
+    res.status(400).send(error.message);
   }
 };
