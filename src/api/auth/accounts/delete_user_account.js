@@ -1,4 +1,5 @@
 import { supabase } from '../../../init';
+import { accountOnDefault } from '../../../database/updateDefaultOnDelete'
 
 export const delete_account = async (req, res) => {
   try {
@@ -7,6 +8,8 @@ export const delete_account = async (req, res) => {
     if (!id) {
       return res.status(400).json({ error: 'O ID da conta é obrigatório' });
     }
+    
+    await accountOnDefault(id);
 
     const { error } = await supabase
       .from('accounts')

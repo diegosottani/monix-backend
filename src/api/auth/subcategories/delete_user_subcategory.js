@@ -1,4 +1,5 @@
 import { supabase } from '../../../init';
+import { subcategoryOnDefault } from "../../../database/updateDefaultOnDelete"
 
 export const delete_user_subcategory = async (req, res) => {
   try {
@@ -12,6 +13,8 @@ export const delete_user_subcategory = async (req, res) => {
     .from('subcategories')
     .delete()
     .eq('id', id)
+
+    await subcategoryOnDefault(null, id);
 
     if (error) throw error;
 

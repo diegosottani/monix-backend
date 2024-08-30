@@ -1,3 +1,4 @@
+import { memberOnDefault } from "../../../database/updateDefaultOnDelete";
 import {
   getMembers,
   createMember,
@@ -58,7 +59,7 @@ export const put_members = async (req, res) => {
 export const delete_members = async (req, res) => {
   try {
     const id = req.params.id;
-
+    await memberOnDefault(id);
     const { error } = await deleteMember(id);
     if (error) throw error;
 
