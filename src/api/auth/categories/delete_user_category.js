@@ -4,12 +4,13 @@ import { categoryOnDefault } from "../../../database/updateDefaultOnDelete";
 export const delete_user_category = async (req, res) => {
   try {
     const id = req.params.id;
+    const userId = req.user.id;
 
     if (!id) {
       res.status(400).json({ error: 'O id da categoria é obrigatório' });
     }
 
-    await categoryOnDefault(id);
+    await categoryOnDefault(id, userId);
 
     const { error } = await supabase
     .from('categories')

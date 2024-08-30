@@ -2,7 +2,7 @@ import { supabase } from "../init.js";
 
 const tables = ["incomings", "expenses", "investments"];
 
-export const categoryOnDefault = async (categoryID) => {
+export const categoryOnDefault = async (categoryID, userId) => {
   try {
     const defaultCategories = {
       incomings: "Outras entradas",
@@ -11,7 +11,7 @@ export const categoryOnDefault = async (categoryID) => {
     };
 
     for (const [table, defaultName] of Object.entries(defaultCategories)) {
-      await updateCategoryDefault(categoryID, table, defaultName);
+      await updateCategoryDefault(categoryID, table, defaultName, userId);
     }
   } catch (err) {
     console.error("Error categoryOnDefault", err);
@@ -19,37 +19,36 @@ export const categoryOnDefault = async (categoryID) => {
   }
 };
 
-export const updateCategoryDefault = async (categoryID, table, defaultName) => {
+const updateCategoryDefault = async (categoryID, table, defaultName, userId) => {
   try {
     if (!categoryID) {
       throw new Error("O id da categoria é obrigatório");
     }
 
+    const defaultCategoryId = await getDefaultCategoryId(defaultName, userId);
     if (table == "expenses") {
-      await updateSubcategoryDefault(categoryID, null);
+      await updateSubcategoryDefault(categoryID, defaultCategoryId);
     }
 
-    const defaultCategoryId = await getDefaultCategoryId(defaultName);
-
-    if (defaultCategoryId.length === 0) {
-      throw new Error(`Categoria padrão "${defaultName}" não encontrada`);
-    }
     const { error } = await supabase
       .from(table)
       .update({ category_id: defaultCategoryId[0].id })
       .eq("category_id", categoryID);
-      
-    if (error) throw error;
 
+    if (error) throw error;
   } catch (err) {
     console.error("Error updateCategoryDefault", err);
     throw err;
   }
 };
 
-export const getDefaultCategoryId = async (defaultName) => {
+const getDefaultCategoryId = async (defaultName, userId) => {
   try {
-    const { data, error } = await supabase.from("categories").select("id").eq("name", defaultName);
+    const { data, error } = await supabase
+      .from("categories")
+      .select("id")
+      .eq("name", defaultName)
+      .eq("user_id", userId);
 
     if (error) throw error;
 
@@ -60,57 +59,61 @@ export const getDefaultCategoryId = async (defaultName) => {
   }
 };
 
-export const subcategoryOnDefault = async (categoryID, subCategoryID) => {
+export const subcategoryOnDefault = async (subCategoryID, userId) => {
   try {
-    await updateSubcategoryDefault(categoryID, subCategoryID);
+    const getCategory = await getCategoryId(subCategoryID);
+    const categoryID = getCategory[0].category_id;
+    const defaultCategoryId = await getDefaultCategoryId("Outras despesas", userId);
+    await updateSubcategoryDefault(categoryID, defaultCategoryId);
   } catch (err) {
     console.error("Error subcategoryOnDefault", err);
     throw err;
   }
 };
 
-export const updateSubcategoryDefault = async (categoryID, subCategoryID) => {
+const getCategoryId = async (subCategoryID) => {
   try {
-    if (!categoryID && !subCategoryID) {
+    const { data, error } = await supabase
+      .from("subcategories")
+      .select("category_id")
+      .eq("id", subCategoryID);
+
+    if (error) throw error;
+
+    return data;
+  } catch (err) {
+    console.error("Error getCategoryId", err);
+    throw err;
+  }
+};
+
+const updateSubcategoryDefault = async (categoryID, defaultCategoryId) => {
+  try {
+    if (!categoryID) {
       throw new Error("O id da categoria é obrigatório");
     }
 
-    const defaultSubcategoryId = await getDefaultSubcategoryId();
-    if (defaultSubcategoryId.length === 0) {
-      throw new Error(`Subcategoria padrão não encontrada`);
-    }
+    const defaultSubcategoryId = await getDefaultSubcategoryId(defaultCategoryId);
+    const { data, error } = await supabase
+      .from("expenses")
+      .update({ subcategory_id: defaultSubcategoryId[0].id })
+      .eq("category_id", categoryID);
 
-    if (subCategoryID) {
-      const { data, error } = await supabase
-        .from("expenses")
-        .update({ subcategory_id: defaultSubcategoryId[0].id })
-        .eq("subcategory_id", subCategoryID);
-
-      if (error) throw error;
-
-      return data;
-    } else {
-      const { data, error } = await supabase
-        .from("expenses")
-        .update({ subcategory_id: defaultSubcategoryId[0].id })
-        .eq("category_id", categoryID);
-
-      if (error) throw error;
-
-      return data;
-    }
+    if (error) throw error;
+    return data;
   } catch (err) {
     console.error("Error updateSubcategoryDefault", err);
     throw err;
   }
 };
 
-export const getDefaultSubcategoryId = async () => {
+const getDefaultSubcategoryId = async (defaultCategoryId) => {
   try {
     const { data, error } = await supabase
       .from("subcategories")
       .select("id")
-      .eq("name", "Outras subcategorias");
+      .eq("name", "Outras subcategorias")
+      .eq("category_id", defaultCategoryId);
 
     if (error) throw error;
 
@@ -141,7 +144,7 @@ export const accountOnDefault = async (accountID) => {
   }
 };
 
-export const getDefaultAccountId = async () => {
+const getDefaultAccountId = async () => {
   try {
     const { data, error } = await supabase
       .from("accounts")
@@ -177,7 +180,7 @@ export const memberOnDefault = async (memberID) => {
   }
 };
 
-export const getDefaultMemberId = async () => {
+const getDefaultMemberId = async () => {
   try {
     const { data, error } = await supabase
       .from("members")
@@ -189,6 +192,42 @@ export const getDefaultMemberId = async () => {
     return data;
   } catch (err) {
     console.error("Error getDefaultMemberId", err);
+    throw err;
+  }
+};
+
+export const cardOnDefault = async (cardID) => {
+  try {
+    const defaultCardId = await getDefaultCardId();
+
+    for (const table of tables) {
+      const { data, error } = await supabase
+        .from(table)
+        .update({ card_id: defaultCardId[0].id })
+        .eq("card_id", cardID);
+
+      if (error) throw error;
+
+      return data;
+    }
+  } catch (err) {
+    console.error("Error cardOnDefault", err);
+    throw err;
+  }
+};
+
+const getDefaultCardId = async () => {
+  try {
+    const { data, error } = await supabase
+      .from("cards")
+      .select("id")
+      .eq("name", "Outros cartões");
+
+    if (error) throw error;
+
+    return data;
+  } catch (err) {
+    console.error("Error getDefaultCardId", err);
     throw err;
   }
 };

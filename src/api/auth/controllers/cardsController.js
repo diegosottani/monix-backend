@@ -1,3 +1,4 @@
+import { cardOnDefault } from "../../../database/updateDefaultOnDelete";
 import {
   getUserCards,
   createUserCard,
@@ -61,7 +62,7 @@ export const put_user_cards = async (req, res) => {
 export const delete_user_cards = async (req, res) => {
   try {
     const id = req.params.id;
-
+    await cardOnDefault(id);
     if (!id) {
       return res.status(400).json({ error: "O id do cartão é obrigatório" });
     }
