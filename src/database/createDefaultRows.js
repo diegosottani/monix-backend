@@ -69,7 +69,7 @@ const getDefaultCategoryId = async (userID) => {
 
     if (error) throw error;
 
-    return data;
+    return data[0].id;
   } catch (err) {
     console.error("Error getDefaultCategoryId", err);
     throw err;
