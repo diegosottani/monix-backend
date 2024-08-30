@@ -32,7 +32,7 @@ const updateCategoryDefault = async (categoryID, table, defaultName, userId) => 
 
     const { error } = await supabase
       .from(table)
-      .update({ category_id: defaultCategoryId[0].id })
+      .update({ category_id: defaultCategoryId })
       .eq("category_id", categoryID);
 
     if (error) throw error;
@@ -52,7 +52,7 @@ const getDefaultCategoryId = async (defaultName, userId) => {
 
     if (error) throw error;
 
-    return data;
+    return data[0].id;
   } catch (err) {
     console.error("Error getDefaultCategoryId", err);
     throw err;
@@ -61,10 +61,8 @@ const getDefaultCategoryId = async (defaultName, userId) => {
 
 export const subcategoryOnDefault = async (subCategoryID, userId) => {
   try {
-    const getCategory = await getCategoryId(subCategoryID);
-    const categoryID = getCategory[0].category_id;
-    const defaultCategoryId = await getDefaultCategoryId("Outras despesas", userId);
-    await updateSubcategoryDefault(categoryID, defaultCategoryId);
+    const categoryID = await getCategoryId(subCategoryID);
+    await updateCategoryDefault(categoryID, "expenses", "Outras despesas", userId);
   } catch (err) {
     console.error("Error subcategoryOnDefault", err);
     throw err;
@@ -80,7 +78,7 @@ const getCategoryId = async (subCategoryID) => {
 
     if (error) throw error;
 
-    return data;
+    return data[0].category_id;
   } catch (err) {
     console.error("Error getCategoryId", err);
     throw err;
@@ -96,7 +94,7 @@ const updateSubcategoryDefault = async (categoryID, defaultCategoryId) => {
     const defaultSubcategoryId = await getDefaultSubcategoryId(defaultCategoryId);
     const { data, error } = await supabase
       .from("expenses")
-      .update({ subcategory_id: defaultSubcategoryId[0].id })
+      .update({ subcategory_id: defaultSubcategoryId })
       .eq("category_id", categoryID);
 
     if (error) throw error;
@@ -117,7 +115,7 @@ const getDefaultSubcategoryId = async (defaultCategoryId) => {
 
     if (error) throw error;
 
-    return data;
+    return data[0].id;
   } catch (err) {
     console.error("Error getDefaultSubcategoryId", err);
     throw err;
@@ -218,10 +216,7 @@ export const cardOnDefault = async (cardID) => {
 
 const getDefaultCardId = async () => {
   try {
-    const { data, error } = await supabase
-      .from("cards")
-      .select("id")
-      .eq("name", "Outros cartões");
+    const { data, error } = await supabase.from("cards").select("id").eq("name", "Outros cartões");
 
     if (error) throw error;
 
