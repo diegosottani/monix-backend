@@ -9,7 +9,7 @@ export const createTypeExpenses = async (userID) => {
 
     return data;
   } catch (err) {
-    console.error("Error creating user", err);
+    console.error("Error createTypeExpenses", err);
     throw err;
   }
 };
@@ -25,7 +25,7 @@ export const createOtherIncomings = async (userID) => {
 
     return data;
   } catch (err) {
-    console.error("Error creating user", err);
+    console.error("Error createOtherIncomings", err);
     throw err;
   }
 };
@@ -41,7 +41,7 @@ export const createOtherExpenses = async (userID) => {
 
     return data;
   } catch (err) {
-    console.error("Error creating user", err);
+    console.error("Error createOtherExpenses", err);
     throw err;
   }
 };
@@ -51,27 +51,27 @@ export const createOtherExpensesSubcategory = async (userID) => {
     const categoryID = await getDefaultCategoryId(userID)
     const { data, error } = await supabase
       .from("subcategories")
-      .insert({ user_id: userID, name: "Outras subcategorias", category_id: categoryID });
+      .insert({ name: "Outras subcategorias", category_id: categoryID });
     if (error) {
       throw error;
     }
 
     return data;
   } catch (err) {
-    console.error("Error creating user", err);
+    console.error("createOtherExpensesSubcategory", err);
     throw err;
   }
 };
 
-const getDefaultCategoryId = async () => {
+const getDefaultCategoryId = async (userID) => {
   try {
-    const { data, error } = await supabase.from("categories").select("id").eq("name", "Outras despesas");
+    const { data, error } = await supabase.from("categories").select("id").eq("name", "Outras despesas").eq("user_id", userID);
 
     if (error) throw error;
 
     return data;
   } catch (err) {
-    console.error("Error creating user", err);
+    console.error("Error getDefaultCategoryId", err);
     throw err;
   }
 };
@@ -87,7 +87,7 @@ export const createOtherInvestments = async (userID) => {
 
     return data;
   } catch (err) {
-    console.error("Error creating user", err);
+    console.error("Error createOtherInvestments", err);
     throw err;
   }
 };
@@ -103,7 +103,7 @@ export const createOtherAccounts = async (userID) => {
 
     return data;
   } catch (err) {
-    console.error("Error creating user", err);
+    console.error("Error createOtherAccounts", err);
     throw err;
   }
 };
@@ -119,7 +119,7 @@ export const createOtherMembers = async (userID) => {
 
     return data;
   } catch (err) {
-    console.error("Error creating user", err);
+    console.error("Error createOtherMembers", err);
     throw err;
   }
 };
@@ -135,7 +135,7 @@ export const createOtherCards = async (userID) => {
 
     return data;
   } catch (err) {
-    console.error("Error creating user", err);
+    console.error("Error createOtherCards", err);
     throw err;
   }
 };
