@@ -4,10 +4,6 @@ import { checkEmailRecords } from '../database/checkEmailRecords.js';
 import { createTypeExpenses, createOtherIncomings, createOtherExpenses, createOtherInvestments, createOtherAccounts, createOtherCards, createOtherMembers, createOtherExpensesSubcategory } from '../database/createDefaultRows.js';
 
 export const post_signup =  async (req, res) => {
-  //não obrigatórios
-  let { phone, rg, cpf, profession, organ_issuer, post_code, address, birth_date } = req.body;
-
-  //obrigatórios
   let {email, password, name} = req.body;
 
   if(!email || !password || !name) {
@@ -24,7 +20,7 @@ export const post_signup =  async (req, res) => {
     let authId = await createAuthUser(email, password, name);
 
     // 2. Insere novo usuário na tabela Users do supabase
-    let userData = { id: authId, email, name, phone, rg, cpf, profession, organ_issuer, post_code, address, birth_date };
+    let userData = { id: authId, email, name };
     const user = await createDbUser(userData);
     
     await createTypeExpenses(authId);

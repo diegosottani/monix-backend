@@ -1,4 +1,7 @@
-import { authLogin, googleLoginUrl, handleGoogleCallback } from "./../auth/authLogin.js";
+import { authLogin, handleGoogleCallback } from "./../auth/authLogin.js";
+import { createDbUser } from './../database/createDbUser.js';
+import { checkEmailRecords } from '../database/checkEmailRecords.js';
+import { createTypeExpenses, createOtherIncomings, createOtherExpenses, createOtherInvestments, createOtherAccounts, createOtherCards, createOtherMembers, createOtherExpensesSubcategory } from '../database/createDefaultRows.js';
 
 export const post_login = async (req, res) => {
   const { email, password } = req.body;
@@ -16,20 +19,28 @@ export const post_login = async (req, res) => {
   }
 };
 
-export const get_google_login = async (req, res) => {
+export const post_google = async (req, res) => {
   try {
-    const url = await googleLoginUrl();
-    res.status(200).json({ url });
-  } catch (error) {
-    res.status(400).send("Falha no login com Google");
-  }
-};
+    const { idToken } = req.body;
+    const { user, session } = await handleGoogleCallback(idToken);
+    user['access_token'] = session.access_token;
+    user['refresh_token'] = session.refresh_token;
 
-export const post_google_callback = async (req, res) => {
-  const { token } = req.body;
-
-  try {
-    const user = await handleGoogleCallback(token);
+    const emailExists = await checkEmailRecords(user.email);
+    if (emailExists.length <= 0) {
+      let userData = { id: user.id, email: user.email, name: user.user_metadata.name };
+      await createDbUser(userData);
+      
+      await createTypeExpenses(user.id);
+      await createOtherIncomings(user.id);
+      await createOtherExpenses(user.id);
+      await createOtherExpensesSubcategory(user.id);
+      await createOtherInvestments(user.id);
+      await createOtherAccounts(user.id);
+      await createOtherCards(user.id);
+      await createOtherMembers(user.id);
+    }
+    
     res.status(200).json(user);
   } catch (error) {
     res.status(400).send("Falha no login com Google");

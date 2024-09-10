@@ -16,28 +16,16 @@ export const authLogin = async (email, password) => {
   }
 };
 
-export const googleLoginUrl = async () => {
+export const handleGoogleCallback = async (idToken) => {
   try {
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
+    const { data, error } = await supabase.auth.signInWithIdToken({
+      provider: 'google',
+      token: idToken,
     });
-
+    
     if (error) throw error;
 
-    return data.url;
-  } catch (err) {
-    console.error("Error generating Google login URL", err.message);
-    throw err;
-  }
-};
-
-export const handleGoogleCallback = async (token) => {
-  try {
-    const { data, error } = await supabase.auth.getUser(token);
-
-    if (error) throw error;
-
-    return data.user;
+    return data;
   } catch (err) {
     console.error("Error handling Google callback", err.message);
     throw err;
