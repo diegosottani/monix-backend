@@ -2,12 +2,13 @@ import { supabase } from "../init";
 
 export const put_new_password = async (req, res) => {
   try {
-    const password = req.body.password;
-    if(!password) {
+    const { password, authToken } = req.body;
+
+    if(!password && !authToken) {
       res.status(400).json({ error: 'É necessário informar a senha' });
     }
 
-    await supabase.auth.updateUser({ password });
+    const {error} = await supabase.auth.updateUser(authToken, { password });
     
     if (error) throw error;
 
