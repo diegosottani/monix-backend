@@ -72,6 +72,10 @@ import { get_transactions_by_category } from './transactions/get_transactions_by
 import { put_transactions_by_category } from './transactions/put_transactions_by_category';
 import { get_user_goal_deposits } from './goal_deposits/get_user_goal_deposits'
 import { post_user_goal_deposits } from './goal_deposits/post_user_goal_deposits'
+import { get_user_planned_investment_subcategory_by_planned_investment_category_id } from './planned_investment_subcategory/get_user_planned_investment_subcategory'
+import { post_user_planned_investment_subcategory } from './planned_investment_subcategory/post_user_planned_investment_subcategory'
+import { put_user_planned_investment_subcategory } from './planned_investment_subcategory/put_user_planned_investment_subcategory'
+import { delete_user_planned_investment_subcategory } from './planned_investment_subcategory/delete_user_planned_investment_subcategory'
 
 export const auth_router = express.Router();
 //user
@@ -150,6 +154,11 @@ auth_router.get('/user/planned_investment_category/:id', get_user_planned_invest
 auth_router.post('/user/planned_investment_category', post_user_planned_investment_category)
 auth_router.put('/user/planned_investment_category/:id', put_user_planned_investment_category)
 auth_router.delete('/user/planned_investment_category/:id', delete_user_planned_investment_category)
+//planned_investment_subcategory
+auth_router.get('/user/planned_investment_subcategory/:id', get_user_planned_investment_subcategory_by_planned_investment_category_id)
+auth_router.post('/user/planned_investment_subcategory', post_user_planned_investment_subcategory)
+auth_router.put('/user/planned_investment_subcategory/:id', put_user_planned_investment_subcategory)
+auth_router.delete('/user/planned_investment_subcategory/:id', delete_user_planned_investment_subcategory)
 //members
 auth_router.get('/user/members', get_members)
 auth_router.post('/user/members', post_members)
