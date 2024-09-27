@@ -1,7 +1,7 @@
 # MONIX
 
 Backend feito com auxílio do Supabase que é um BaaS (backend as a service).
-Foi utilizado essa metodologia, para facilitar o desenvolvimento, visto que boa parte do backend foi desenvolvido pelos alunos que tinha pouca experiência. Posteriormente, o backend foi incrementado pelo desenvolvedor do app.
+Essa metodologia foi utilizada para facilitar o desenvolvimento, visto que boa parte do backend foi desenvolvido pelos alunos que tinham pouca experiência. Posteriormente, o backend foi incrementado pelo desenvolvedor do app.
 
 ## Diretrizes AWS
 
