@@ -1,7 +1,7 @@
 import { createAuthUser } from './../auth/createAuthUser.js';
 import { createDbUser } from './../database/createDbUser.js';
 import { checkEmailRecords } from '../database/checkEmailRecords.js';
-import { createTypeExpenses, createOtherIncomings, createOtherExpenses, createOtherInvestments, createOtherAccounts, createOtherCards, createOtherMembers, createOtherExpensesSubcategory } from '../database/createDefaultRows.js';
+import { createTypeExpenses, createOtherIncomings, createOtherExpenses, createOtherInvestments, createOtherAccounts, createOtherCards, createOtherMembers } from '../database/createDefaultRows.js';
 
 export const post_signup =  async (req, res) => {
   let {email, password, name} = req.body;
@@ -26,7 +26,6 @@ export const post_signup =  async (req, res) => {
     await createTypeExpenses(authId);
     await createOtherIncomings(authId);
     await createOtherExpenses(authId);
-    await createOtherExpensesSubcategory(authId);
     await createOtherInvestments(authId);
     await createOtherAccounts(authId);
     await createOtherCards(authId);

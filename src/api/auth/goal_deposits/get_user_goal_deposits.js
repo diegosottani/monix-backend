@@ -1,4 +1,4 @@
-import { supabase } from "../../../init";
+import { supabase } from "../../../init.js";
 
 export const get_user_goal_deposits = async (req, res) => {
   try {

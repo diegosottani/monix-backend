@@ -1,7 +1,7 @@
 import { authLogin, handleGoogleCallback } from "./../auth/authLogin.js";
 import { createDbUser } from './../database/createDbUser.js';
 import { checkEmailRecords } from '../database/checkEmailRecords.js';
-import { createTypeExpenses, createOtherIncomings, createOtherExpenses, createOtherInvestments, createOtherAccounts, createOtherCards, createOtherMembers, createOtherExpensesSubcategory } from '../database/createDefaultRows.js';
+import { createTypeExpenses, createOtherIncomings, createOtherExpenses, createOtherInvestments, createOtherAccounts, createOtherCards, createOtherMembers } from '../database/createDefaultRows.js';
 
 export const post_login = async (req, res) => {
   const { email, password } = req.body;
@@ -34,7 +34,6 @@ export const post_google = async (req, res) => {
       await createTypeExpenses(user.id);
       await createOtherIncomings(user.id);
       await createOtherExpenses(user.id);
-      await createOtherExpensesSubcategory(user.id);
       await createOtherInvestments(user.id);
       await createOtherAccounts(user.id);
       await createOtherCards(user.id);

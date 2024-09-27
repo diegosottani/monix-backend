@@ -1,6 +1,6 @@
-import { supabase } from '../../../init';
-import { calculateNextDate } from '../../../utils/calculateNextDate';
-import { untilEndYear } from '../../../utils/untilEndYear';
+import { supabase } from '../../../init.js';
+import { calculateNextDate } from '../../../utils/calculateNextDate.js';
+import { untilEndYear } from '../../../utils/untilEndYear.js';
 
 export const post_user_expenses = async (req, res) => {
   try {

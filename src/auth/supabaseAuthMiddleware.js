@@ -1,4 +1,4 @@
-import { supabase } from './../init';
+import { supabase } from './../init.js';
 
 export const supabaseAuthMiddleware = async (req, res, next) => {
   let authHeader = req.headers.authorization;

@@ -1,4 +1,4 @@
-import { supabase } from '../../../init';
+import { supabase } from '../../../init.js';
 
 export const get_account_by_id = async (req, res) => {
   try {

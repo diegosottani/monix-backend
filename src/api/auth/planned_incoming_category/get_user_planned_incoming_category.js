@@ -1,4 +1,4 @@
-import { supabase } from "../../../init";
+import { supabase } from "../../../init.js";
 
 export const get_user_planned_incoming_category = async (req, res) => {
   try {

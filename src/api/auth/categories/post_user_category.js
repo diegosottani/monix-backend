@@ -1,4 +1,4 @@
-import { supabase } from "../../../init";
+import { supabase } from "../../../init.js";
 
 export const post_user_category = async (req, res) => {
   const validTypeOfCategories = ["incoming", "expense", "investment"];

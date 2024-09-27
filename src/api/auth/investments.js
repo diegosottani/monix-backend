@@ -1,5 +1,5 @@
-import { supabase } from "../../init";
-import { groupByDate } from "../../utils/groupByDate"
+import { supabase } from "../../init.js";
+import { groupByDate } from "../../utils/groupByDate.js"
 
 export const get_investments = async (req, res) => {
   try {

@@ -1,10 +1,10 @@
-import { cardOnDefault } from "../../../database/updateDefaultOnDelete";
+import { cardOnDefault } from "../../../database/updateDefaultOnDelete.js";
 import {
   getUserCards,
   createUserCard,
   updateUserCard,
   deleteUserCard,
-} from "../services/cardsService";
+} from "../services/cardsService.js";
 
 export const get_user_cards = async (req, res) => {
   try {

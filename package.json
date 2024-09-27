@@ -8,8 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "Rafael Figueiroa <rafafigueiroa@gmail.com> (https://github.com/RafaFigueiroa)",
-  "license": "MIT",
+  "author": "Monix",
+  "type": "module",
   "devDependencies": {
     "@babel/core": "^7.24.4",
     "@babel/node": "^7.23.9",

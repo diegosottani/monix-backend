@@ -1,10 +1,10 @@
-import { memberOnDefault } from "../../../database/updateDefaultOnDelete";
+import { memberOnDefault } from "../../../database/updateDefaultOnDelete.js";
 import {
   getMembers,
   createMember,
   updateMember,
   deleteMember,
-} from "../services/membersService";
+} from "../services/membersService.js";
 
 export const get_members = async (req, res) => {
   try {

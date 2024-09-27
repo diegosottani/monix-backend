@@ -1,4 +1,4 @@
-import { getFinancialSummary } from "../services/financialSummaryService";
+import { getFinancialSummary } from "../services/financialSummaryService.js";
 
 export const get_financial_summary = async (req, res) => {
   try {

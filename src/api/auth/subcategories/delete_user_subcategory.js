@@ -1,5 +1,5 @@
-import { supabase } from '../../../init';
-import { subcategoryOnDefault } from "../../../database/updateDefaultOnDelete"
+import { supabase } from '../../../init.js';
+import { subcategoryOnDefault } from "../../../database/updateDefaultOnDelete.js"
 
 export const delete_user_subcategory = async (req, res) => {
   try {

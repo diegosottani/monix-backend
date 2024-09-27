@@ -1,5 +1,5 @@
-import { supabase } from '../../../init';
-import { accountOnDefault } from '../../../database/updateDefaultOnDelete'
+import { supabase } from '../../../init.js';
+import { accountOnDefault } from '../../../database/updateDefaultOnDelete.js'
 
 export const delete_account = async (req, res) => {
   try {

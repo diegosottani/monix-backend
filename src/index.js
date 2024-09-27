@@ -1,9 +1,9 @@
 import 'dotenv/config';
 import cors from 'cors';
 import express from 'express';
-import { root_router } from './api/root_router';
-import { auth_router } from './api/auth/auth_router';
-import { auth_middleware } from './api/auth/auth_middleware';
+import { root_router } from './api/root_router.js';
+import { auth_router } from './api/auth/auth_router.js';
+import { auth_middleware } from './api/auth/auth_middleware.js';
 
 
 const app = express();
