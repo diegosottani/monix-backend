@@ -5,7 +5,7 @@ Foi utilizado essa metodologia, para facilitar o desenvolvimento, visto que boa 
 
 ## Diretrizes AWS
 
-O código backend é hospedado na AWS, no serviço EC2 com IP fixo configurado (Elastic IP).
+O código backend é hospedado na AWS, no serviço EC2 com IP fixo configurado (Elastic IP).  
 Nessa máquina, temos o Node rodando a aplicação (porta 80).
 Existe um webhook no Github que se comunica com a instância EC2, atualizando a máquina sempre que é feito push na branch main.
 O webhook dispara o arquivo deploy.sh que está na instância, fazendo todo o processo de rebuild.
