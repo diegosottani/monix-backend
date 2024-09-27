@@ -1,5 +1,11 @@
 # MONIX
 
+## Instalação:
+
+Instalar as dependências com npm i
+Criar o arquivo .env e configurar as variáveis de ambiente de acordo com a URL e KEY do Supabase.
+As informações podem ser obtidas no painel de configurações do Supabase.
+
 ## Autores:
 
 ### Squad - 01:
