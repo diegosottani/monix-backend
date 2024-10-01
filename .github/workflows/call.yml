@@ -1,0 +1,22 @@
+name: Call EC2 Webhook
+
+on:
+  push:
+    branches:
+      - main # Altere para o branch que você deseja monitorar
+
+jobs:
+  call-api:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Call Webhook API
+        env:
+          SECRET: ${{ secrets.SECRETAWS }} # Obtém o segredo do GitHub
+        run: |
+          curl -X POST "http://ec2-54-207-95-109.sa-east-1.compute.amazonaws.com/webhook" \
+          -H "Content-Type: application/json" \
+          -H "Authorization: Bearer $SECRET" \
+          -d '{"key": "value"}'  # Substitua pelo corpo da sua requisição
