@@ -20,4 +20,4 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          ssh -o StrictHostKeyChecking=no ec2-user@ec2-54-207-95-109.sa-east-1.compute.amazonaws.com 'bash -s' < ./deploy.sh
+          ssh -o StrictHostKeyChecking=no ec2-user@ec2-54-207-95-109.sa-east-1.compute.amazonaws.com 'bash /home/ec2-user/deploy.sh'
