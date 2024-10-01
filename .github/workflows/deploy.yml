@@ -1,23 +1,22 @@
-name: Deploy to EC2
+name: Call EC2 Webhook
 
 on:
   push:
     branches:
-      - main
+      - main # Altere para o branch que você deseja monitorar
 
 jobs:
-  deploy:
+  call-api:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
+      - name: Checkout Code
         uses: actions/checkout@v2
 
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.5.3
-        with:
-          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
-
-      - name: Deploy to EC2
+      - name: Call Webhook API
+        env:
+          SECRET: ${{ secrets.DEPLOY_EC2 }} # Obtém o segredo do GitHub
         run: |
-          ssh -o StrictHostKeyChecking=no ec2-user@ec2-54-207-95-109.sa-east-1.compute.amazonaws.com 'bash /home/ec2-user/deploy.sh'
+          curl -X POST "http://ec2-54-207-95-109.sa-east-1.compute.amazonaws.com/webhook" \
+          -H "Content-Type: application/json" \
+          -H "Authorization: Bearer $SECRET" \
+          -d '{"key": "value"}'  # Substitua pelo corpo da sua requisição
