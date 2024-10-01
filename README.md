@@ -10,7 +10,7 @@ Nessa máquina, temos o Node rodando a aplicação (porta 80).
 Existe um webhook no Github que se comunica com a instância EC2, atualizando a máquina sempre que é feito push na branch main.  
 O webhook dispara o arquivo deploy.sh que está na instância, fazendo todo o processo de rebuild.  
 Para que o webhook funcione na AWS, na instância tem um arquivo chamado server.js que monitora o hook (porta 443).  
-Existe o arquivo .env na instância que define essas portas, assim como as credenciais do Supabase.
+Existe o arquivo .env na instância que define essas portas, assim como as credenciais do Supabase.  
 Os scripts de deploy e server são gerenciados pela biblioteca pm2.
 
 ## Como rodar localmente
