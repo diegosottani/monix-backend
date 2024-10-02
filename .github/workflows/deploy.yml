@@ -3,7 +3,7 @@ name: Call EC2 Webhook
 on:
   push:
     branches:
-      - main # Altere para o branch que você deseja monitorar
+      - main
 
 jobs:
   call-api:
@@ -14,9 +14,9 @@ jobs:
 
       - name: Call Webhook API
         env:
-          SECRET: ${{ secrets.DEPLOY_EC2 }} # Obtém o segredo do GitHub
+          SECRET: ${{ secrets.DEPLOY_EC2 }} # Variável de repositório configurada no painel do GitHub
         run: |
           curl -X POST "http://ec2-54-207-95-109.sa-east-1.compute.amazonaws.com/webhook" \
           -H "Content-Type: application/json" \
           -H "Authorization: Bearer $SECRET" \
-          -d '{"key": "value"}'  # Substitua pelo corpo da sua requisição
+          -d '{"key": "value"}'  # Corpo da requisição se necessário

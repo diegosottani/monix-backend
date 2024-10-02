@@ -3,25 +3,30 @@
 Backend feito com auxílio do Supabase que é um BaaS (backend as a service).
 Essa metodologia foi utilizada para facilitar o desenvolvimento, visto que boa parte do backend foi desenvolvido pelos alunos que tinham pouca experiência. Posteriormente, o backend foi incrementado pelo desenvolvedor do app.
 
-## Diretrizes AWS
+## Deploy
 
-O código backend é hospedado na AWS, no serviço EC2 com IP fixo configurado (Elastic IP).  
-Nessa máquina, temos o Node rodando a aplicação (porta 80).  
-Existe um webhook no Github que se comunica com a instância EC2, atualizando a máquina sempre que é feito push na branch main.  
-O webhook dispara o arquivo deploy.sh que está na instância, fazendo todo o processo de rebuild.  
-Para que o webhook funcione na AWS, na instância tem um arquivo chamado server.js que monitora o hook (porta 443).  
-Existe o arquivo .env na instância que define essas portas, assim como as credenciais do Supabase.  
-Os scripts de deploy e server são gerenciados pela biblioteca pm2.
+Esse código backend é hospedado na AWS, no serviço EC2 com IP fixo configurado (Elastic IP).  
+Nessa máquina, temos o nginx cuidado do proxy reverso, sendo que a porta 80 redireciona para duas rotas:
+
+- http://ec2-54-207-95-109.sa-east-1.compute.amazonaws.com/ que é o backend em si para ser chamado no app.
+- http://ec2-54-207-95-109.sa-east-1.compute.amazonaws.com/webhook para realizar o deploy.
+
+Ao fazer push na branch main, é acionada uma Github Action para se comunicar com a instância EC2, atualizando o repostório do servidor.  
+A Action dispara uma requisição HTTP na instância, na rota /webhook.  
+Essa rota dispara o arquivo deploy.sh que está na instância, fazendo todo o processo de rebuild.  
+Para que o deploy rode na AWS, temos uma "Actions secrets and variables" com uma secret definida nas configurações do repositório.  
+Os scripts de deploy e o servidor rodando Node fulltime são gerenciados pela biblioteca pm2 instalada na instância.
 
 ## Como rodar localmente
 
 1. Abra o git bash no diretório desejado
 2. Faça o clone do repositório: `git clone https://github.com/diegosottani/monix-backend.git`
-3. Agora navegue até o repositório: `cd monix-backend/`
-4. Instale as depedências usando o seguinte: `npm install`
-5. Examinar o arquivo .env.template para saber quais variáveis de ambiente são necessárias para o projeto.
-6. Crie um arquivo .env na root do diretório e atribua valores às variáveis, tais valores podem ser obtidos no painel do Supabase.
-7. Rode o projeto: `npm start`
+3. Agora navegue até o repositório: `cd monix-backend`
+4. Troque para a branch de desenvolvimento: `git checkout dev`
+5. Instale as depedências usando o seguinte: `npm install`
+6. Examinar o arquivo .env.template para saber quais variáveis de ambiente são necessárias para o projeto.
+7. Crie um arquivo .env na root do diretório e atribua valores às variáveis, tais valores podem ser obtidos no painel do Supabase.
+8. Rode o projeto: `npm run start`
 
 ## Como se cadastrar
 
