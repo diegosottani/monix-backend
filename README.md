@@ -11,6 +11,18 @@ Nessa máquina, temos o nginx cuidado do proxy reverso, sendo que a porta 80 red
 - http://ec2-54-207-95-109.sa-east-1.compute.amazonaws.com/ que é o backend em si para ser chamado no app.
 - http://ec2-54-207-95-109.sa-east-1.compute.amazonaws.com/webhook para realizar o deploy.
 
+#### Acessar pasta do nginx com configurações de proxy
+
+```bash
+nano /etc/nginx/conf.d/default.conf
+```
+
+#### Após qualquer alteração, no nginx, reiniciá-lo
+
+```bash
+sudo systemctl restart nginx
+```
+
 Ao fazer push na branch main, é acionada uma Github Action para se comunicar com a instância EC2, atualizando o repostório do servidor.  
 A Action dispara uma requisição HTTP na instância, na rota /webhook.  
 Essa rota dispara o arquivo deploy.sh que está na instância, fazendo todo o processo de rebuild.  
