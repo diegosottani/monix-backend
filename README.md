@@ -16,6 +16,7 @@ Esses serviços estão configurados cada um em uma pasta, sendo monix-backend e 
 
 ```bash
 pm2 list
+pm2 logs
 ```
 
 #### Acessar pasta do nginx com configurações de proxy
