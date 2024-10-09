@@ -14,7 +14,7 @@ Nessa máquina, temos o nginx cuidado do proxy reverso, sendo que a porta 80 red
 #### Acessar pasta do nginx com configurações de proxy
 
 ```bash
-nano /etc/nginx/conf.d/default.conf
+sudo nano /etc/nginx/conf.d/default.conf
 ```
 
 #### Após qualquer alteração, no nginx, reiniciá-lo
