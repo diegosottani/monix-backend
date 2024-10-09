@@ -6,7 +6,7 @@ Essa metodologia foi utilizada para facilitar o desenvolvimento, visto que boa p
 ## Deploy
 
 Esse código backend é hospedado na AWS, no serviço EC2 com IP fixo configurado (Elastic IP).  
-Nessa máquina, temos o apache lidando com o proxy reverso, fazendo os redirecionamentos necessários:
+Nessa máquina, temos o Apache lidando com o proxy reverso, fazendo os redirecionamentos necessários:
 
 - https://app.monixbr.com/ que é o backend em si para ser chamado no app.
 - https://app.monixbr.com/webhook para realizar o deploy.
