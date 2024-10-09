@@ -31,7 +31,7 @@ export const post_signup =  async (req, res) => {
     await createOtherCards(authId);
     await createOtherMembers(authId);
 
-    res.status(200).send("Usuário cadastro com sucesso", user);
+    return res.status(200).json({ message: "Usuário cadastrado com sucesso", user });
     
   } catch (error) {
     res.status(400).send(error.message);
