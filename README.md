@@ -6,21 +6,21 @@ Essa metodologia foi utilizada para facilitar o desenvolvimento, visto que boa p
 ## Deploy
 
 Esse código backend é hospedado na AWS, no serviço EC2 com IP fixo configurado (Elastic IP).  
-Nessa máquina, temos o nginx cuidado do proxy reverso, sendo que a porta 80 redireciona para duas rotas:
+Nessa máquina, temos o apache lidando com o proxy reverso, fazendo os redirecionamentos necessários:
 
-- http://ec2-54-207-95-109.sa-east-1.compute.amazonaws.com/ que é o backend em si para ser chamado no app.
-- http://ec2-54-207-95-109.sa-east-1.compute.amazonaws.com/webhook para realizar o deploy.
+- https://app.monixbr.com/ que é o backend em si para ser chamado no app.
+- https://app.monixbr.com/webhook para realizar o deploy.
 
 #### Acessar pasta do nginx com configurações de proxy
 
 ```bash
-sudo nano /etc/nginx/conf.d/default.conf
+sudo nano /etc/httpd/conf.d/app.monixbr.com.conf
 ```
 
 #### Após qualquer alteração, no nginx, reiniciá-lo
 
 ```bash
-sudo systemctl restart nginx
+sudo systemctl restart httpd
 ```
 
 Ao fazer push na branch main, é acionada uma Github Action para se comunicar com a instância EC2, atualizando o repostório do servidor.  

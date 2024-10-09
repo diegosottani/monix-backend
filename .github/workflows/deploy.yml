@@ -16,7 +16,7 @@ jobs:
         env:
           SECRET: ${{ secrets.DEPLOY_EC2 }} # Variável de repositório configurada no painel do GitHub
         run: |
-          curl -X POST "http://ec2-54-207-95-109.sa-east-1.compute.amazonaws.com/webhook" \
+          curl -X POST "https://app.monixbr.com/webhook" \
           -H "Content-Type: application/json" \
           -H "Authorization: Bearer $SECRET" \
           -d '{"key": "value"}'  # Corpo da requisição se necessário
