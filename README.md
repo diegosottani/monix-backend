@@ -11,6 +11,13 @@ Nessa máquina, temos o Apache lidando com o proxy reverso, fazendo os redirecio
 - https://app.monixbr.com/ que é o backend em si para ser chamado no app
 - https://app.monixbr.com/webhook para realizar o deploy
 
+Esses serviços estão configurados cada um em uma pasta, sendo monix-backend e monix-webhook, respectivamente.
+É utilizado o pm2 para rodar os serviços, o nome de cada serviço é o mesmo nome da pasta:
+
+```bash
+pm2 list
+```
+
 #### Acessar pasta do nginx com configurações de proxy
 
 ```bash
