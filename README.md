@@ -22,13 +22,13 @@ pm2 logs
 #### Acessar pasta do nginx com configurações de proxy
 
 ```bash
-sudo nano /etc/httpd/conf.d/app.monixbr.com.conf
+sudo nano /etc/nginx/conf.d/app.monixbr.com.conf
 ```
 
 #### Após qualquer alteração, no nginx, reiniciá-lo
 
 ```bash
-sudo systemctl restart httpd
+sudo systemctl restart nginx
 ```
 
 Ao fazer push na branch main, é acionada uma Github Action para se comunicar com a instância EC2, atualizando o repostório do servidor.  
