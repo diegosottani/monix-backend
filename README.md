@@ -6,12 +6,12 @@ Essa metodologia foi utilizada para facilitar o desenvolvimento, visto que boa p
 ## Deploy
 
 Esse código backend é hospedado na AWS, no serviço EC2 com IP fixo configurado (Elastic IP).  
-Nessa máquina, temos o Apache lidando com o proxy reverso, fazendo os redirecionamentos necessários:
+Nessa máquina, temos o Nginx lidando com o proxy reverso, fazendo os redirecionamentos necessários:
 
-- https://app.monixbr.com/ que é o backend em si para ser chamado no app
-- https://app.monixbr.com/webhook para realizar o deploy
+- https://app.monixbr.com/ que é o backend em si para ser chamado no app, contém todas as rotas do supabase
+- https://app.monixbr.com/deploy para realizar o deploy do backend, ou seja, atualizar este código no EC2
 
-Esses serviços estão configurados cada um em uma pasta, sendo monix-backend e monix-webhook, respectivamente.
+Esses serviços estão configurados cada um em uma pasta, sendo monix-backend e monix-deploy, respectivamente.
 É utilizado o pm2 para rodar os serviços, o nome de cada serviço é o mesmo nome da pasta:
 
 ```bash
@@ -32,8 +32,8 @@ sudo systemctl restart nginx
 ```
 
 Ao fazer push na branch main, é acionada uma Github Action para se comunicar com a instância EC2, atualizando o repostório do servidor.  
-A Action dispara uma requisição HTTP na instância, na rota /webhook.  
-Essa rota dispara o arquivo deploy.sh que está na instância, fazendo todo o processo de rebuild.  
+A Action dispara uma requisição HTTP na instância, na rota /deploy.  
+Essa rota acessa o deploy.js que está na instância, fazendo todo o processo de rebuild.  
 Para que o deploy rode na AWS, temos uma "Actions secrets and variables" com uma secret definida nas configurações do repositório.  
 Os scripts de deploy e o servidor rodando Node fulltime são gerenciados pela biblioteca pm2 instalada na instância.
 
