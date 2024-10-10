@@ -18,5 +18,4 @@ jobs:
         run: |
           curl -X POST "https://app.monixbr.com/deploy" \
           -H "Content-Type: application/json" \
-          -H "Authorization: Bearer $SECRET" \
-          -d '{"key": "value"}'  # Corpo da requisição se necessário
+          -H "Authorization: Bearer $SECRET"
