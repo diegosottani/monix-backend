@@ -25,7 +25,7 @@ pm2 logs
 sudo nano /etc/nginx/conf.d/app.monixbr.com.conf
 ```
 
-#### Após qualquer alteração, no nginx, reiniciá-lo
+#### Após qualquer alteração no nginx, é necessário reiniciá-lo
 
 ```bash
 sudo systemctl restart nginx
