@@ -5,8 +5,7 @@ export const post_user_planned_expense = async (req, res) => {
         const year = parseInt(req.body.year);
         
         if (isNaN(year)) {
-            res.status(400).json({ error: 'É necessário informar o ano' });
-            return;
+            return res.status(400).json({ error: 'É necessário informar o ano' });
         }
 
         const entries = [];
@@ -25,10 +24,10 @@ export const post_user_planned_expense = async (req, res) => {
             throw error;
         }
 
-        res.status(201).send('Planejamento de despesa criada com sucesso');
+        return res.status(201).send('Planejamento de despesa criada com sucesso');
     } catch (error) {
         console.log(error.message)
-        res.status(500).json(error);
+        return res.status(500).json(error);
     }
 
 }

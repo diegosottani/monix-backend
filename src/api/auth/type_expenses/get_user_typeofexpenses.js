@@ -15,9 +15,9 @@ export const get_user_typeofexpenses = async (req, res) => {
       throw error;
     }
 
-    res.status(200).send(data);
+    return res.status(200).send(data);
   } catch (error) {
     console.error('Erro ao recuperar o tipo de despesa:', error);
-    res.status(500).json({ error: 'Erro ao recuperar o tipo de despesa' });
+    return res.status(500).json({ error: 'Erro ao recuperar o tipo de despesa' });
   }
 };

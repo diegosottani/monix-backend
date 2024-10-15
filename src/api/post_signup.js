@@ -7,7 +7,7 @@ export const post_signup =  async (req, res) => {
   let {email, password, name} = req.body;
 
   if(!email || !password || !name) {
-    res.status(400).json({ error: 'É necessário preencher todos os campos obrigatórios' });
+    return res.status(400).json({ error: 'É necessário preencher todos os campos obrigatórios' });
   }
 
   try {
@@ -34,6 +34,6 @@ export const post_signup =  async (req, res) => {
     return res.status(200).json({ message: "Usuário cadastrado com sucesso", user });
     
   } catch (error) {
-    res.status(400).send(error.message);
+    return res.status(400).send(error.message);
   }
 };

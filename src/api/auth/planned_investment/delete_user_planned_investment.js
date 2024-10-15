@@ -5,8 +5,7 @@ export const delete_user_planned_investment = async (req, res) => {
     const planned_investment_id = req.params.id;
 
     if (!planned_investment_id) {
-      res.status(400).json({ error: 'O id do investimento planejado é obrigatório' });
-      return;
+      return res.status(400).json({ error: 'O id do investimento planejado é obrigatório' });
     }
 
     const { error } = await supabase
@@ -18,9 +17,9 @@ export const delete_user_planned_investment = async (req, res) => {
       throw error;
     }
 
-    res.status(200).send("Investimento planejado excluído com sucesso");
+    return res.status(200).send("Investimento planejado excluído com sucesso");
   } catch (error) {
     console.error('Erro ao excluir investimento planejado:', error);
-    res.status(500).json({ error: 'Erro ao excluir investimento planejado' });
+    return res.status(500).json({ error: 'Erro ao excluir investimento planejado' });
   }
 };

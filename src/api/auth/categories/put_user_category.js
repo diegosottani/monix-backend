@@ -6,7 +6,7 @@ export const put_user_category = async (req, res) => {
     const name = req.body.name;
 
     if (!name) {
-      res.status(400).json({ error: 'O nome da categoria é obrigatório' });
+      return res.status(400).json({ error: 'O nome da categoria é obrigatório' });
     }
 
     const { error } = await supabase
@@ -16,9 +16,9 @@ export const put_user_category = async (req, res) => {
 
     if (error) throw error;
 
-    res.status(200).send("Nome de categoria alterado com sucesso")
+    return res.status(200).send("Nome de categoria alterado com sucesso")
   } catch (error) {
     console.error('Erro ao atualizar categoria:', error);
-    res.status(500).json({ error: 'Erro ao atualizar categoria' });
+    return res.status(500).json({ error: 'Erro ao atualizar categoria' });
   }
 };

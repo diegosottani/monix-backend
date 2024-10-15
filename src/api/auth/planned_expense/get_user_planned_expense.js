@@ -5,8 +5,7 @@ export const get_user_planned_expense = async (req, res) => {
         const month = parseInt(req.query.month);
         const year = parseInt(req.query.year);
         if (isNaN(year)) {
-            res.status(400).json({ error: 'É necessário informar o ano como um número válido' });
-            return;
+            return res.status(400).json({ error: 'É necessário informar o ano como um número válido' });
         }
 
         let query = supabase
@@ -28,8 +27,8 @@ export const get_user_planned_expense = async (req, res) => {
 
         if (error) throw error;
     
-        res.status(200).send(data);
+        return res.status(200).send(data);
     } catch (error) {
-        res.status(500).json(error);
+        return res.status(500).json(error);
     }
 }

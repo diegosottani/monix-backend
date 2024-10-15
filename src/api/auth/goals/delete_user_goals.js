@@ -5,7 +5,7 @@ export const delete_user_goals = async (req, res) => {
     const id = req.params.id;
 
     if (!id) {
-      res.status(400).json({ error: 'O id de objetivo é obrigatório' });
+      return res.status(400).json({ error: 'O id de objetivo é obrigatório' });
     }
 
     const { error } = await supabase
@@ -17,9 +17,9 @@ export const delete_user_goals = async (req, res) => {
       throw error;
     }
 
-    res.status(200).send("Objetivo excluído com sucesso");
+    return res.status(200).send("Objetivo excluído com sucesso");
   } catch (error) {
     console.error('Erro ao excluir objetivo:', error);
-    res.status(500).json({ error: 'Erro ao excluir objetivo' });
+    return res.status(500).json({ error: 'Erro ao excluir objetivo' });
   }
 };

@@ -5,11 +5,11 @@ export const put_new_password = async (req, res) => {
     const { password, access_token, refresh_token } = req.body;
 
     if(!password) {
-      res.status(400).json({ error: 'É necessário informar a senha' });
+      return res.status(400).json({ error: 'É necessário informar a senha' });
     }
 
     if(!access_token) {
-      res.status(403).json({ error: 'Token inválido' });
+      return res.status(403).json({ error: 'Token inválido' });
     }
 
     const { data, error } = await supabase.auth.setSession({
@@ -25,9 +25,9 @@ export const put_new_password = async (req, res) => {
     
     if (updateError) throw error;
 
-    res.status(201).send("Senha atualizada com sucesso");
+    return res.status(201).send("Senha atualizada com sucesso");
   } catch (error) {
     console.log(error);
-    res.status(500).send("Erro ao atualizar senha");
+    return res.status(500).send("Erro ao atualizar senha");
   }
 }

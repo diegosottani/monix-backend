@@ -6,8 +6,7 @@ export const get_user_planned_expense_category = async (req, res) => {
     const category_id = req.query.category;
 
     if (!planned_id || !category_id) {
-      res.status(400).json({ error: 'É necessário informar todos os parâmetros' });
-      return;
+      return res.status(400).json({ error: 'É necessário informar todos os parâmetros' });
     }
 
     const { data, error } = await supabase
@@ -18,9 +17,9 @@ export const get_user_planned_expense_category = async (req, res) => {
 
     if (error) throw error;
 
-    res.status(200).send(data);
+    return res.status(200).send(data);
   } catch (error) {
     console.log(error);
-    res.status(500).json(error);
+    return res.status(500).json(error);
   }
 };

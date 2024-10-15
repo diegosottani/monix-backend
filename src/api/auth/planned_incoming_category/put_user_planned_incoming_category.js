@@ -6,7 +6,7 @@ export const put_user_planned_incoming_category = async (req, res) => {
     const { value } = req.body;
 
     if (isNaN(value)) {
-      res.status(400).json({ error: 'É necessário preencher todos os campos' });
+      return res.status(400).json({ error: 'É necessário preencher todos os campos' });
     }
 
     const { error } = await supabase
@@ -20,9 +20,9 @@ export const put_user_planned_incoming_category = async (req, res) => {
       throw error;
     }
 
-    res.status(200).send("Categoria de entrada planejada atualizada com sucesso");
+    return res.status(200).send("Categoria de entrada planejada atualizada com sucesso");
   } catch (error) {
     console.error('Erro ao atualizar categoria de entrada planejada:', error);
-    res.status(500).json(error);
+    return res.status(500).json(error);
   }
 };

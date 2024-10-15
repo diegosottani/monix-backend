@@ -5,7 +5,7 @@ export const post_reset_password = async (req, res) => {
     const email = req.body.email;
     
     if(!email) {
-      res.status(400).json({ error: 'É necessário informar o email' });
+      return res.status(400).json({ error: 'É necessário informar o email' });
     }
 
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
@@ -14,9 +14,9 @@ export const post_reset_password = async (req, res) => {
     
     if (error) throw error;
 
-    res.status(200).send("Link de enviado para email");
+    return res.status(200).send("Link de enviado para email");
   } catch (error) {
     console.log(error);
-    res.status(500).json(error);
+    return res.status(500).json(error);
   }
 }

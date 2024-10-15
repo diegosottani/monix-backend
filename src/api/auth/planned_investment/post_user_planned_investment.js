@@ -5,8 +5,7 @@ export const post_user_planned_investment = async (req, res) => {
         const year = parseInt(req.body.year);
         
         if (isNaN(year)) {
-            res.status(400).json({ error: 'É necessário informar o ano' });
-            return;
+            return res.status(400).json({ error: 'É necessário informar o ano' });
         }
 
         const entries = [];
@@ -23,9 +22,9 @@ export const post_user_planned_investment = async (req, res) => {
 
         if (error) throw error;
 
-        res.status(201).send('Investimento planejado criado com sucesso');
+        return res.status(201).send('Investimento planejado criado com sucesso');
     } catch (error) {
         console.error(error.message);
-        res.status(500).json({ error: 'Erro ao criar investimento planejado' });
+        return res.status(500).json({ error: 'Erro ao criar investimento planejado' });
     }
 }

@@ -34,9 +34,9 @@ export const get_goals_info = async (req, res) => {
       goalsInfo.push(goalInfo);
     });
 
-    res.status(200).json(goalsInfo);
+    return res.status(200).json(goalsInfo);
   } catch (error) {
     console.error('Erro ao obter informações dos objetivos:', error);
-    res.status(500).json({ error: 'Erro ao obter informações dos objetivos' });
+    return res.status(500).json({ error: 'Erro ao obter informações dos objetivos' });
   }
 };

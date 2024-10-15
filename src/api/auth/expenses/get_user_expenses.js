@@ -44,9 +44,9 @@ export const get_user_expenses = async (req, res) => {
     if (error) {
       throw error;
     }
-    res.status(200).send(groupByDate(data));
+    return res.status(200).send(groupByDate(data));
   } catch (error) {
     console.error('Erro ao recuperar despesas:', error);
-    res.status(500).json({ error: 'Erro ao recuperar despesas' });
+    return res.status(500).json({ error: 'Erro ao recuperar despesas' });
   }
 };

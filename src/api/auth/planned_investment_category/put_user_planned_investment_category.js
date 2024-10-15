@@ -6,7 +6,7 @@ export const put_user_planned_investment_category = async (req, res) => {
     const { value } = req.body;
 
     if (isNaN(value)) {
-      res.status(400).json({ error: 'É necessário preencher todos os campos' });
+      return res.status(400).json({ error: 'É necessário preencher todos os campos' });
     }
 
     const { error } = await supabase

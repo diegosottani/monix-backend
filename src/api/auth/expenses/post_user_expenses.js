@@ -15,7 +15,7 @@ export const post_user_expenses = async (req, res) => {
       || !req.body.account
       || !req.body.status
     ) {
-      res.status(400).json({ error: 'É necessário preencher todos os campos' });
+      return res.status(400).json({ error: 'É necessário preencher todos os campos' });
     }
 
     const entries = [];
@@ -81,9 +81,9 @@ export const post_user_expenses = async (req, res) => {
 
     if (error) throw error;
 
-    res.status(201).send("Despesa criada com sucesso");
+    return res.status(201).send("Despesa criada com sucesso");
   } catch (error) {
     console.error('Erro ao criar despesa:', error);
-    res.status(500).json({ error: 'Erro ao criar despesa' });
+    return res.status(500).json({ error: 'Erro ao criar despesa' });
   }
 };

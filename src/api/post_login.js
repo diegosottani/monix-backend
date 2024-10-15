@@ -10,12 +10,12 @@ export const post_login = async (req, res) => {
     // Email/password login
     try {
       const jwt = await authLogin(email, password);
-      res.status(200).json(jwt);
+      return res.status(200).json(jwt);
     } catch (error) {
-      res.status(400).send("Credenciais inválidas");
+      return res.status(400).send("Credenciais inválidas");
     }
   } else {
-    res.status(400).send("Email e senha são necessários para login");
+    return res.status(400).send("Email e senha são necessários para login");
   }
 };
 
@@ -40,8 +40,8 @@ export const post_google = async (req, res) => {
       await createOtherMembers(user.id);
     }
     
-    res.status(200).json(user);
+    return res.status(200).json(user);
   } catch (error) {
-    res.status(400).send("Falha no login com Google");
+    return res.status(400).send("Falha no login com Google");
   }
 };

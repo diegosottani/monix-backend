@@ -5,7 +5,7 @@ export const delete_user_planned_investment_subcategory = async (req, res) => {
         const planned_investment_subcategory_id = req.params.id;
 
         if (!planned_investment_subcategory_id) {
-            res.status(400).json({ error: 'O id da subcategoria de despesa planejada é obrigatório' });
+            return res.status(400).json({ error: 'O id da subcategoria de despesa planejada é obrigatório' });
         }
 
         const { error } = await supabase
@@ -17,9 +17,9 @@ export const delete_user_planned_investment_subcategory = async (req, res) => {
             throw error;
         }
         
-        res.status(200).send("Subcategoria de despesa planejada excluída com sucesso");
+        return res.status(200).send("Subcategoria de despesa planejada excluída com sucesso");
         } catch (error) {
             console.error('Erro ao excluir subcategoria de despesa planejada:', error);
-            res.status(500).json({ error: 'Erro ao excluir subcategoria de despesa planejada' });
+            return res.status(500).json({ error: 'Erro ao excluir subcategoria de despesa planejada' });
         }
     };

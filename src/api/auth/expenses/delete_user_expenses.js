@@ -5,7 +5,7 @@ export const delete_user_expenses = async (req, res) => {
     const expenseId = req.params.id;
 
     if (!expenseId) {
-      res.status(400).json({ error: 'O id da despesa é obrigatório' });
+      return res.status(400).json({ error: 'O id da despesa é obrigatório' });
     }
 
     const { error } = await supabase
@@ -17,9 +17,9 @@ export const delete_user_expenses = async (req, res) => {
       throw error;
     }
 
-    res.status(200).send("Despesa excluída com sucesso");
+    return res.status(200).send("Despesa excluída com sucesso");
   } catch (error) {
     console.error('Erro ao excluir despesa:', error);
-    res.status(500).json({ error: 'Erro ao excluir despesa' });
+    return res.status(500).json({ error: 'Erro ao excluir despesa' });
   }
 };

@@ -12,9 +12,9 @@ export const get_user_goal_deposits = async (req, res) => {
     }
     const deposits = data.reduce((acc, item) => acc + item.deposit, 0);
 
-    res.status(200).json({ deposits });
+    return res.status(200).json({ deposits });
   } catch (error) {
     console.error("Erro ao recuperar depósitos de Objetivo:", error);
-    res.status(500).json(error);
+    return res.status(500).json(error);
   }
 };

@@ -12,9 +12,9 @@ export const post_account = async (req, res) => {
 
     if (error) throw error;
 
-    res.status(201).json('Conta criada com sucesso');
+    return res.status(201).json('Conta criada com sucesso');
   } catch (error) {
     console.error('Erro ao criar conta:', error);
-    res.status(500).json({ error: 'Erro ao criar conta' });
+    return res.status(500).json({ error: 'Erro ao criar conta' });
   }
 };

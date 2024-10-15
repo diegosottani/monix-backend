@@ -17,9 +17,9 @@ export const get_transactions_by_category = async (req, res) => {
 
     if (error) throw error;
 
-    res.status(200).send({ total: count });
+    return res.status(200).send({ total: count });
   } catch (error) {
     console.error("Erro ao recuperar quantidade de transações:", error);
-    res.status(500).json({ error: "Erro ao recuperar quantidade de transações" });
+    return res.status(500).json({ error: "Erro ao recuperar quantidade de transações" });
   }
 };

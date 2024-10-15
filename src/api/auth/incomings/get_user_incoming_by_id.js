@@ -10,9 +10,9 @@ export const get_user_incoming_by_id = async (req, res) => {
 
     if (error) throw error;
     
-    res.status(200).send(data);
+    return res.status(200).send(data);
   } catch (error) {
     console.error('Erro ao buscar dados de entrada:', error);
-    res.status(500).json({ error: 'Erro ao buscar dados de entrada' });
+    return res.status(500).json({ error: 'Erro ao buscar dados de entrada' });
   }
 };

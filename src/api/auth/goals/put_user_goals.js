@@ -20,9 +20,9 @@ export const put_user_goals = async (req, res) => {
       throw error;
     }
 
-    res.status(200).send("Objetivo atualizado com sucesso");
+    return res.status(200).send("Objetivo atualizado com sucesso");
   } catch (error) {
     console.error('Erro ao atualizar objetivo:', error);
-    res.status(500).json({ error: 'Erro ao atualizar objetivo' });
+    return res.status(500).json({ error: 'Erro ao atualizar objetivo' });
   }
 };

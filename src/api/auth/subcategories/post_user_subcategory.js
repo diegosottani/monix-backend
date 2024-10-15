@@ -3,7 +3,7 @@ import { supabase } from '../../../init.js';
 export const post_user_subcategory = async (req, res) => {
   try {
     if (!req.body.name) {
-      res.status(400).json({ error: 'O nome da subcategoria é obrigatório' });
+      return res.status(400).json({ error: 'O nome da subcategoria é obrigatório' });
     }
 
     const { error } = await supabase
@@ -12,9 +12,9 @@ export const post_user_subcategory = async (req, res) => {
 
     if (error) throw error;
 
-    res.status(200).send("Subcategoria criada com sucesso")
+    return res.status(200).send("Subcategoria criada com sucesso")
   } catch (error) {
     console.error('Erro ao criar subcategoria:', error);
-    res.status(500).json({ error: 'Erro ao recuperar subcategoria' });
+    return res.status(500).json({ error: 'Erro ao recuperar subcategoria' });
   }
 };

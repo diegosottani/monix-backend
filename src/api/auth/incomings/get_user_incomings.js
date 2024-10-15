@@ -28,9 +28,9 @@ export const get_user_incomings = async (req, res) => {
       .order("date", { ascending: true });
 
     if (error) throw error;
-    res.status(200).json(groupByDate(data));
+    return res.status(200).json(groupByDate(data));
   } catch (error) {
     console.error('Erro ao buscar entradas:', error);
-    res.status(500).json({ error: 'Erro ao buscar entradas' });
+    return res.status(500).json({ error: 'Erro ao buscar entradas' });
   }
 };

@@ -18,9 +18,9 @@ export const put_user_typeofexpenses = async (req, res) => {
       throw error;
     }
 
-    res.status(200).send("Tipo de despesa atualizada com sucesso");
+    return res.status(200).send("Tipo de despesa atualizada com sucesso");
   } catch (error) {
     console.error('Erro ao atualizar o tipo de despesa:', error);
-    res.status(500).json({ error: 'Erro ao atualizar o tipo despesa' });
+    return res.status(500).json({ error: 'Erro ao atualizar o tipo despesa' });
   }
 };

@@ -13,8 +13,7 @@ export const post_user_incomings = async (req, res) => {
       || !req.body.account
       || !req.body.status
     ) {
-      res.status(400).json({ error: 'É necessário preencher todos os campos' });
-      return;
+      return res.status(400).json({ error: 'É necessário preencher todos os campos' });
     }
 
     const entries = [];
@@ -75,9 +74,9 @@ export const post_user_incomings = async (req, res) => {
 
     if (error) throw error;
 
-    res.status(201).send("Entrada criada com sucesso");
+    return res.status(201).send("Entrada criada com sucesso");
   } catch (error) {
       console.error('Erro ao criar entrada:', error);
-      res.status(500).json({ error: 'Erro ao criar entrada' });
+      return res.status(500).json({ error: 'Erro ao criar entrada' });
   }
 }

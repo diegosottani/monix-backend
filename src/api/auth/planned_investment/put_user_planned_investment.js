@@ -17,9 +17,9 @@ export const put_user_planned_investment = async (req, res) => {
             throw error;
         }
 
-        res.status(200).send("Investimento planejado atualizada com sucesso");
+        return res.status(200).send("Investimento planejado atualizada com sucesso");
     } catch (error) {
         console.error('Erro ao atualizar investimento planejado:', error);
-        res.status(500).json({ error: 'Erro ao atualizar investimento planejado' });
+        return res.status(500).json({ error: 'Erro ao atualizar investimento planejado' });
     }
 };

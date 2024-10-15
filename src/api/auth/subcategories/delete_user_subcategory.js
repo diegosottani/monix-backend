@@ -5,7 +5,7 @@ export const delete_user_subcategory = async (req, res) => {
     const id = req.params.id;
 
     if (!id) {
-      res.status(400).json({ error: 'O id da subcategoria é obrigatório' });
+      return res.status(400).json({ error: 'O id da subcategoria é obrigatório' });
     }
         
     const { error } = await supabase
@@ -15,9 +15,9 @@ export const delete_user_subcategory = async (req, res) => {
 
     if (error) throw error;
 
-    res.status(200).send("Subcategoria excluída com sucesso")
+    return res.status(200).send("Subcategoria excluída com sucesso")
   } catch (error) {
     console.error('Erro ao excluir subcategoria:', error);
-    res.status(500).json({ error: 'Erro ao excluir subcategoria' });
+    return res.status(500).json({ error: 'Erro ao excluir subcategoria' });
   }
 };

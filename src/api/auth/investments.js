@@ -44,10 +44,10 @@ export const get_investments = async (req, res) => {
       .order("date", { ascending: true });
 
     if (error) throw error;
-    res.status(200).send(groupByDate(data));
+    return res.status(200).send(groupByDate(data));
   } catch (error) {
     console.error("Erro ao recuperar investimentos:", error);
-    res.status(500).json({ error: "Erro ao recuperar os investimentos" });
+    return res.status(500).json({ error: "Erro ao recuperar os investimentos" });
   }
 };
 
@@ -61,10 +61,10 @@ export const get_investments_by_id = async (req, res) => {
 
     if (error) throw error;
 
-    res.status(200).send(data);
+    return res.status(200).send(data);
   } catch (error) {
     console.error("Erro ao buscar dados de investimento:", error);
-    res.status(500).json({ error: "Erro ao buscar dados de investimento" });
+    return res.status(500).json({ error: "Erro ao buscar dados de investimento" });
   }
 };
 
@@ -80,7 +80,7 @@ export const post_investments = async (req, res) => {
       !req.body.description ||
       !req.body.status
     ) {
-      res.status(400).json({ error: "Todos os campos são obrigatórios" });
+      return res.status(400).json({ error: "Todos os campos são obrigatórios" });
     }
 
     const { error } = await supabase.from("investments").insert({
@@ -97,10 +97,10 @@ export const post_investments = async (req, res) => {
 
     if (error) throw error;
 
-    res.status(200).send("Investimento cadastrado com sucesso");
+    return res.status(200).send("Investimento cadastrado com sucesso");
   } catch (error) {
     console.error("Erro ao cadastrar investimento:", error);
-    res.status(500).json({ error: "Erro ao cadastrar investimento" });
+    return res.status(500).json({ error: "Erro ao cadastrar investimento" });
   }
 };
 
@@ -118,7 +118,7 @@ export const put_investments = async (req, res) => {
       !req.body.description ||
       !req.body.status
     ) {
-      res.status(400).json({ error: "Todos os campos são obrigatórios" });
+      return res.status(400).json({ error: "Todos os campos são obrigatórios" });
     }
 
     const updatedInvestment = {
@@ -135,9 +135,9 @@ export const put_investments = async (req, res) => {
     const { error } = await supabase.from("investments").update(updatedInvestment).eq("id", id);
     if (error) throw error;
 
-    res.status(200).send("dados atualizado com sucesso");
+    return res.status(200).send("dados atualizado com sucesso");
   } catch (error) {
-    res.status(500).json({ error: "Erro ao atualizar os dados" });
+    return res.status(500).json({ error: "Erro ao atualizar os dados" });
   }
 };
 
@@ -152,9 +152,9 @@ export const delete_investments = async (req, res) => {
     const { error } = await supabase.from("investments").delete().eq("id", id);
     if (error) throw error;
 
-    res.status(200).send("investimento excluído com sucesso");
+    return res.status(200).send("investimento excluído com sucesso");
   } catch (error) {
     console.error("Erro ao excluir investimento:", error);
-    res.status(500).json({ error: "Erro ao excluir investimento" });
+    return res.status(500).json({ error: "Erro ao excluir investimento" });
   }
 };

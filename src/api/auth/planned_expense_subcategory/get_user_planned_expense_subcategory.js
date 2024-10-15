@@ -5,8 +5,7 @@ export const get_user_planned_expense_subcategory_by_planned_expense_category_id
         const subcategory_id = req.query.subcategory;
         
         if (!subcategory_id) {
-            res.status(400).json({ error: 'É necessário informar subcategory_id' });
-            return;
+            return res.status(400).json({ error: 'É necessário informar subcategory_id' });
         }
 
         const {data, error} = await supabase
@@ -34,9 +33,9 @@ export const get_user_planned_expense_subcategory_by_planned_expense_category_id
             throw error;
         }
 
-        res.status(200).send(data);
+        return res.status(200).send(data);
     } catch (error) {
         console.log(error)
-        res.status(500).json({ error: 'Erro ao recuperar subcategorias das despesas planejadas' });
+        return res.status(500).json({ error: 'Erro ao recuperar subcategorias das despesas planejadas' });
     }
 }

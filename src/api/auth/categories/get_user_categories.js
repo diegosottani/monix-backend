@@ -11,9 +11,9 @@ export const get_user_categories = async (req, res) => {
 
     if (error) throw error;
 
-    res.status(200).send(data)
+    return res.status(200).send(data)
   } catch (error) {
     console.error('Erro ao recuperar categorias:', error);
-    res.status(500).json({ error: 'Erro ao recuperar categorias' });
+    return res.status(500).json({ error: 'Erro ao recuperar categorias' });
   }
 };

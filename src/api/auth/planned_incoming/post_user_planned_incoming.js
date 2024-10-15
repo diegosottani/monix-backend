@@ -5,8 +5,7 @@ export const post_user_planned_incoming = async (req, res) => {
         const year = parseInt(req.body.year);
         
         if (isNaN(year)) {
-            res.status(400).json({ error: 'É necessário informar o ano' });
-            return;
+            return res.status(400).json({ error: 'É necessário informar o ano' });
         }
 
         const entries = [];
@@ -23,9 +22,9 @@ export const post_user_planned_incoming = async (req, res) => {
 
         if (error) throw error;
 
-        res.status(201).send('Planejamento de Entrada criado com sucesso');
+        return res.status(201).send('Planejamento de Entrada criado com sucesso');
     } catch (error) {
         console.error(error.message);
-        res.status(500).json(error);
+        return res.status(500).json(error);
     }
 }

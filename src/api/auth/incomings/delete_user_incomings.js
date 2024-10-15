@@ -5,8 +5,7 @@ export const delete_user_incomings = async (req, res) => {
     const incomingId = req.params.id;
 
     if (!incomingId) {
-      res.status(400).json({ error: 'O id da entrada é obrigatório' });
-      return;
+      return res.status(400).json({ error: 'O id da entrada é obrigatório' });
     }
 
     const { error } = await supabase
@@ -18,9 +17,9 @@ export const delete_user_incomings = async (req, res) => {
       throw error;
     }
 
-    res.status(200).send("Entrada excluída com sucesso");
+    return res.status(200).send("Entrada excluída com sucesso");
   } catch (error) {
     console.error('Erro ao excluir entrada:', error);
-    res.status(500).json({ error: 'Erro ao excluir entrada' });
+    return res.status(500).json({ error: 'Erro ao excluir entrada' });
   }
 };

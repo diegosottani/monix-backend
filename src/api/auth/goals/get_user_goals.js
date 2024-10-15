@@ -23,10 +23,10 @@ export const get_user_goals = async (req, res) => {
       deposits: await getDeposits(goal.id)
     })));
 
-    res.status(200).send(updatedData);
+    return res.status(200).send(updatedData);
   } catch (error) {
     console.error('Erro ao recuperar objetivos:', error);
-    res.status(500).json({ error: 'Erro ao recuperar objetivos' });
+    return res.status(500).json({ error: 'Erro ao recuperar objetivos' });
   }
 };
 

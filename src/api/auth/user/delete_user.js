@@ -15,9 +15,9 @@ export const delete_user = async (req, res) => {
 
     if (error) throw error;
 
-    res.status(200).send("Usuário deletado com sucesso");
+    return res.status(200).send("Usuário deletado com sucesso");
   } catch (error) {
     console.error('Erro ao deletar usuário:', error);
-    res.status(500).json({ error: 'Erro ao deletar usuário' });
+    return res.status(500).json({ error: 'Erro ao deletar usuário' });
   }
 };

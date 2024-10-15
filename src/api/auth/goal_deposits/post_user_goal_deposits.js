@@ -4,8 +4,7 @@ export const post_user_goal_deposits = async (req, res) => {
 
   try {
     if (!req.body.goal_id || !req.body.deposit) {
-      res.status(400).json({ error: 'É necessário preencher todos os campos' });
-      return;
+      return res.status(400).json({ error: 'É necessário preencher todos os campos' });
     }
     const { error } = await supabase
       .from('goal_deposits')
@@ -17,8 +16,8 @@ export const post_user_goal_deposits = async (req, res) => {
       });
       if (error) throw error;
 
-    res.status(200).send("Valor de Objetivo depositado com sucesso");
+    return res.status(200).send("Valor de Objetivo depositado com sucesso");
   } catch (error) {
-    res.status(500).json(error);
+    return res.status(500).json(error);
   }
 };

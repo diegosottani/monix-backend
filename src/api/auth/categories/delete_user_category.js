@@ -5,7 +5,7 @@ export const delete_user_category = async (req, res) => {
     const id = req.params.id;
 
     if (!id) {
-      res.status(400).json({ error: 'O id da categoria é obrigatório' });
+      return res.status(400).json({ error: 'O id da categoria é obrigatório' });
     }
 
     const { error } = await supabase
@@ -15,9 +15,9 @@ export const delete_user_category = async (req, res) => {
 
     if (error) throw error;
 
-    res.status(200).send("Categoria excluída com sucesso")
+    return res.status(200).send("Categoria excluída com sucesso")
   } catch (error) {
     console.error('Erro ao excluir categoria:', error);
-    res.status(500).json({ error: 'Erro ao excluir categoria' });
+    return res.status(500).json({ error: 'Erro ao excluir categoria' });
   }
 };

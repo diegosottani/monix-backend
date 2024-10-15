@@ -5,7 +5,7 @@ export const post_new_user_login = async (req, res) => {
     const { access_token, refresh_token } = req.body;
 
     if(!access_token) {
-      res.status(403).json({ error: 'Token inválido' });
+      return res.status(403).json({ error: 'Token inválido' });
     }
 
     const { data, error } = await supabase.auth.setSession({
@@ -15,9 +15,9 @@ export const post_new_user_login = async (req, res) => {
 
     if (error) throw error;
 
-    res.status(201).send("Novo login realizado com sucesso");
+    return res.status(201).send("Novo login realizado com sucesso");
   } catch (error) {
     console.log(error);
-    res.status(500).send("Erro entrar com novo login");
+    return res.status(500).send("Erro entrar com novo login");
   }
 }

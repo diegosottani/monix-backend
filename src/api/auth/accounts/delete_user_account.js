@@ -18,9 +18,9 @@ export const delete_account = async (req, res) => {
 
     if (error) throw error;
 
-    res.status(200).json({ message: 'Conta deletada com sucesso' });
+    return res.status(200).json({ message: 'Conta deletada com sucesso' });
   } catch (error) {
     console.error('Erro ao deletar conta:', error);
-    res.status(500).json({ error: 'Erro ao deletar conta' });
+    return res.status(500).json({ error: 'Erro ao deletar conta' });
   }
 };

@@ -10,10 +10,10 @@ export const get_releases = async (req, res) => {
     const releases = [...incomings, ...expenses, ...investments];
     const groupReleasesByDate = groupByDate(releases);
 
-    res.status(200).json(groupReleasesByDate);
+    return res.status(200).json(groupReleasesByDate);
   } catch (error) {
     console.error("Erro ao acessar o resumo financeiro:", error);
-    res.status(500).json({ error: "Erro ao acessar o resumo financeiro" });
+    return res.status(500).json({ error: "Erro ao acessar o resumo financeiro" });
   }
 };
 

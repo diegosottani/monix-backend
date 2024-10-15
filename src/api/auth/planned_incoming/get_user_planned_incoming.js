@@ -6,8 +6,7 @@ export const get_user_planned_incoming = async (req, res) => {
         const year = parseInt(req.query.year);
         
         if (isNaN(year)) {
-            res.status(400).json({ error: 'É necessário informar o ano como um número válido' });
-            return;
+            return res.status(400).json({ error: 'É necessário informar o ano como um número válido' });
         }
 
         let query = supabase
@@ -29,9 +28,9 @@ export const get_user_planned_incoming = async (req, res) => {
 
         if (error) throw error;
 
-        res.status(200).json(data);
+        return res.status(200).json(data);
     } catch (error) {
         console.error(error);
-        res.status(500).json(error);
+        return res.status(500).json(error);
     }
 }

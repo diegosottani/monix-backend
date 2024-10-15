@@ -26,9 +26,9 @@ export const put_user = async (req, res) => {
 
     if (error) throw error;
 
-    res.status(200).send("Dados do usuário atualizados com sucesso");
+    return res.status(200).send("Dados do usuário atualizados com sucesso");
   } catch (error) {
     console.error('Erro ao atualizar usuário:', error);
-    res.status(500).json({ error: 'Erro ao atualizar usuário' });
+    return res.status(500).json({ error: 'Erro ao atualizar usuário' });
   }
 };

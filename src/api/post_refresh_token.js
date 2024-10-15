@@ -7,8 +7,8 @@ export const post_refresh_token = async (req, res) => {
 
     if (error) throw error;
 
-    res.status(200).send(data);
+    return res.status(200).send(data);
   } catch (error) {
-    res.status(400).send("Falha ao renovar token");
+    return res.status(400).send("Falha ao renovar token");
   }
 };

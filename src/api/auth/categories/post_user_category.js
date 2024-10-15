@@ -18,9 +18,9 @@ export const post_user_category = async (req, res) => {
 
     if (error) throw error;
 
-    res.status(200).send("Categoria criada com sucesso");
+    return res.status(200).send("Categoria criada com sucesso");
   } catch (error) {
     console.error("Erro ao criar categoria:", error);
-    res.status(500).json({ error: "Erro ao criar categoria" });
+    return res.status(500).json({ error: "Erro ao criar categoria" });
   }
 };

@@ -32,9 +32,9 @@ export const put_transactions_by_category = async (req, res) => {
 
     if (error) throw error;
 
-    res.status(200).send("Transações atualizadas com sucesso");
+    return res.status(200).send("Transações atualizadas com sucesso");
   } catch (error) {
     console.error("Erro ao atualizar as transações destas categorias:", error);
-    res.status(500).json({ error: "Erro ao atualizar as transações destas categorias" });
+    return res.status(500).json({ error: "Erro ao atualizar as transações destas categorias" });
   }
 };

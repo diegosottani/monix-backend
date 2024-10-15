@@ -24,9 +24,9 @@ export const put_user_incomings = async (req, res) => {
 
     if (error) throw error;
 
-    res.status(200).send("Entrada atualizada com sucesso");
+    return res.status(200).send("Entrada atualizada com sucesso");
   } catch (error) {
     console.error('Erro ao atualizar entrada:', error);
-    res.status(500).json({ error: 'Erro ao atualizar entrada' });
+    return res.status(500).json({ error: 'Erro ao atualizar entrada' });
   }
 };

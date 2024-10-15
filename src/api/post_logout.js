@@ -6,8 +6,8 @@ export const post_logout = async (req, res) => {
     
     if (error) throw error;
 
-    res.status(200).send("Desconectado com sucesso");
+    return res.status(200).send("Desconectado com sucesso");
   } catch (error) {
-    res.status(400).send("Falha ao desconectar")
+    return res.status(400).send("Falha ao desconectar")
   }
 }

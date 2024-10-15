@@ -3,7 +3,7 @@ export const delete_user_planned_investment_category = async (req, res) => {
   try {
     const planned_investment_category_id = req.params.id;
     if (!planned_investment_category_id) {
-      res.status(400).json({
+      return res.status(400).json({
         error: "O id da categoria de investimento planejada é obrigatório",
       });
     }

@@ -17,9 +17,9 @@ export const put_user_planned_incoming = async (req, res) => {
             throw error;
         }
 
-        res.status(200).send("Entrada planejada atualizada com sucesso");
+        return res.status(200).send("Entrada planejada atualizada com sucesso");
     } catch (error) {
         console.error('Erro ao atualizar receita planejada:', error);
-        res.status(500).json({ error: 'Erro ao atualizar entrada planejada' });
+        return res.status(500).json({ error: 'Erro ao atualizar entrada planejada' });
     }
 };

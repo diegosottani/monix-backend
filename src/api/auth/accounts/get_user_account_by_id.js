@@ -20,9 +20,9 @@ export const get_account_by_id = async (req, res) => {
       return res.status(404).json({ error: 'Conta não encontrada' });
     }
 
-    res.status(200).json(data);
+    return res.status(200).json(data);
   } catch (error) {
     console.error('Erro ao obter conta:', error);
-    res.status(500).json({ error: 'Erro ao obter conta' });
+    return res.status(500).json({ error: 'Erro ao obter conta' });
   }
 };
