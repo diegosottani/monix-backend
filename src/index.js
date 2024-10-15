@@ -10,7 +10,8 @@ const app = express();
 
 app.use(cors({
   origin: ['http://app.monixbr.com', 'https://app.monixbr.com'], 
-  methods: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
 app.use(express.urlencoded({ extended: true }));
