@@ -8,9 +8,7 @@ export const post_reset_password = async (req, res) => {
       return res.status(400).json({ error: 'É necessário informar o email' });
     }
 
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: 'monix://changePassword',
-    });
+    const { error } = await supabase.auth.resetPasswordForEmail(email);
     
     if (error) throw error;
 
