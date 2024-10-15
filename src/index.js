@@ -8,7 +8,11 @@ import { auth_middleware } from './api/auth/auth_middleware.js';
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: ['http://app.monixbr.com', 'https://app.monixbr.com'], 
+  methods: '*',
+  credentials: true
+}));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use('/', root_router);
