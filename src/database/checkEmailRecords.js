@@ -3,7 +3,7 @@ import { supabase } from "../init.js";
 export const checkEmailRecords = async (email) => {
   try {
     const { data, error } = await supabase
-      .from("users")
+      .from("auth.users")
       .select("email")
       .eq("email", email);
 
