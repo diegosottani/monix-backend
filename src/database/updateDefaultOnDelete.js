@@ -77,6 +77,7 @@ const getDefaultMemberId = async () => {
 export const cardOnDefault = async (cardID) => {
   try {
     const defaultCardId = await getDefaultCardId();
+    const tables = ["expenses"];
 
     for (const table of tables) {
       const { data, error } = await supabase
