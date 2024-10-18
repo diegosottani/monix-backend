@@ -77,7 +77,6 @@ export const post_investments = async (req, res) => {
       !req.body.account ||
       !req.body.date ||
       !req.body.value ||
-      !req.body.description ||
       !req.body.status
     ) {
       return res.status(400).json({ error: "Todos os campos são obrigatórios" });
@@ -115,7 +114,6 @@ export const put_investments = async (req, res) => {
       !req.body.account ||
       !req.body.date ||
       !req.body.value ||
-      !req.body.description ||
       !req.body.status
     ) {
       return res.status(400).json({ error: "Todos os campos são obrigatórios" });

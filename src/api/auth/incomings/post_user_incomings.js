@@ -9,7 +9,6 @@ export const post_user_incomings = async (req, res) => {
       || !req.body.member
       || !req.body.frequency 
       || !req.body.category
-      || !req.body.description
       || !req.body.account
       || !req.body.status
     ) {

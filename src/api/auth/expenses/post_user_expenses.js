@@ -11,7 +11,6 @@ export const post_user_expenses = async (req, res) => {
       || !req.body.category
       || !req.body.subcategory
       || !req.body.expenseType
-      || !req.body.description
       || !req.body.account
       || !req.body.status
     ) {
