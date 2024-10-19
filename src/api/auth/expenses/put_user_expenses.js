@@ -16,6 +16,7 @@ export const put_user_expenses = async (req, res) => {
       expense_type: req.body.expenseType,
       description: req.body.description,
       account_id: req.body.account,
+      card_id: req.body.card,
       status: req.body.status,
     };
 
