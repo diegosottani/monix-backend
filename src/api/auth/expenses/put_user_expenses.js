@@ -18,6 +18,7 @@ export const put_user_expenses = async (req, res) => {
       account_id: req.body.account,
       card_id: req.body.card,
       status: req.body.status,
+      payment_confirmed: req.body.payment_confirmed
     };
 
     const { error } = await supabase
