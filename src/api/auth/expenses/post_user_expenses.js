@@ -12,7 +12,6 @@ export const post_user_expenses = async (req, res) => {
       || !req.body.subcategory
       || !req.body.expenseType
       || (!req.body.account && !req.body.card)
-      || !req.body.status
     ) {
       return res.status(400).json({ error: 'É necessário preencher todos os campos' });
     }
