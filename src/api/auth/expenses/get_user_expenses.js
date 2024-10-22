@@ -37,6 +37,7 @@ export const get_user_expenses = async (req, res) => {
         type
       `)
       .eq('user_id', req.user.id)
+      .neq("payment_confirmed", false)
       .gte("date", startDate)
       .lte("date", endDate)
       .order("date", { ascending: true });

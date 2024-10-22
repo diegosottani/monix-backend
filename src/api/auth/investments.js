@@ -1,5 +1,6 @@
 import { supabase } from "../../init.js";
-import { groupByDate } from "../../utils/groupByDate.js"
+import { groupByDate } from "../../utils/groupByDate.js";
+import { calculateNextDate } from '../../../utils/calculateNextDate.js';
 
 export const get_investments = async (req, res) => {
   try {
@@ -39,6 +40,7 @@ export const get_investments = async (req, res) => {
       `
       )
       .eq("user_id", userId)
+      .neq("payment_confirmed", false)
       .gte("date", startDate)
       .lte("date", endDate)
       .order("date", { ascending: true });
@@ -81,7 +83,7 @@ export const post_investments = async (req, res) => {
       return res.status(400).json({ error: "Todos os campos são obrigatórios" });
     }
 
-    const { error } = await supabase.from("investments").insert({
+    const { data: investment, error: errorInvestment } = await supabase.from("investments").insert({
       user_id: req.user.id,
       goal_id: req.body.goal,
       category_id: req.body.category,
@@ -91,11 +93,36 @@ export const post_investments = async (req, res) => {
       value: req.body.value,
       status: req.body.status,
       description: req.body.description,
-    });
+      payment_confirmed: req.body.hasOwnProperty('frequency') ? (req.body.frequency == "Nao recorrente" ? true : false) : undefined
+    }).select('id');
+
+    if (errorInvestment) throw errorInvestment;
+
+    const entries = [];
+
+    if (req.body.periodicity && req.body.quantity) {
+      let currentDate = new Date(req.body.date);  
+      for (let i = 0; i < req.body.quantity; i++) {
+        entries.push({
+          date: currentDate.toISOString().split('T')[0], // Formatar a data como yyyy-mm-dd
+          investment_id: investment.id
+        });
+        currentDate = calculateNextDate(currentDate, periodicity);
+      }
+    } else if (req.body.frequency == "Fixo mensal") {
+      const currentDate = new Date(req.body.date);
+      const nextMonth = calculateNextDate(currentDate, "Mensal");
+      entries.push({
+        date: nextMonth.toISOString().split('T')[0], // Formatar a data como yyyy-mm-dd
+        investment_id: investment.id
+      });
+    }
+
+    const { error } = await supabase.from('queue').insert(entries);
 
     if (error) throw error;
 
-    return res.status(200).send("Investimento cadastrado com sucesso");
+    return res.status(201).send("Investimento cadastrado com sucesso");
   } catch (error) {
     console.error("Erro ao cadastrar investimento:", error);
     return res.status(500).json({ error: "Erro ao cadastrar investimento" });
@@ -126,6 +153,7 @@ export const put_investments = async (req, res) => {
       value: req.body.value,
       status: req.body.status,
       description: req.body.description,
+      payment_confirmed: req.body.payment_confirmed
     };
 
     const { error } = await supabase.from("investments").update(updatedInvestment).eq("id", id);

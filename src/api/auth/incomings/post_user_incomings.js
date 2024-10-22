@@ -1,6 +1,5 @@
 import { supabase } from '../../../init.js';
 import { calculateNextDate } from '../../../utils/calculateNextDate.js';
-import { untilEndYear } from '../../../utils/untilEndYear.js';
 
 export const post_user_incomings = async (req, res) => {
   try {
@@ -14,61 +13,42 @@ export const post_user_incomings = async (req, res) => {
       return res.status(400).json({ error: 'É necessário preencher todos os campos' });
     }
 
+    const { data: incoming, error: errorIncoming } = await supabase.from('incomings').insert({
+      user_id: req.user.id,
+      date: req.body.date,
+      value: req.body.value,
+      member_id: req.body.member,
+      frequency: req.body.frequency,
+      category_id: req.body.category,
+      description: req.body.description,
+      account_id: req.body.account,
+      status: req.body.status,
+      payment_confirmed: req.body.hasOwnProperty('frequency') ? (req.body.frequency == "Nao recorrente" ? true : false) : undefined
+    }).select('id');
+
+    if (errorIncoming) throw errorIncoming;
+
     const entries = [];
 
     if (req.body.periodicity && req.body.quantity) {
       let currentDate = new Date(req.body.date);
-
-      for (let i = 0; i <= req.body.quantity; i++) {
+      for (let i = 0; i < req.body.quantity; i++) {
         entries.push({
-          user_id: req.user.id,
-          date: currentDate.toISOString().split("T")[0], // Format date as yyyy-mm-dd
-          value: req.body.value,
-          member_id: req.body.member,
-          frequency: req.body.frequency,
-          category_id: req.body.category,
-          description: req.body.description,
-          account_id: req.body.account,
-          status: req.body.status,
-          periodicity: req.body.periodicity,
-          quantity: req.body.quantity
+          date: currentDate.toISOString().split('T')[0], // Formatar a data como yyyy-mm-dd
+          incoming_id: incoming.id
         });
         currentDate = calculateNextDate(currentDate, periodicity);
       }
     } else if (req.body.frequency == "Fixo mensal") {
-      let currentDate = new Date(req.body.date);
-      
-      for (let i = 0; i <= untilEndYear(currentDate); i++) {
-        entries.push({
-          user_id: req.user.id,
-          date: currentDate.toISOString().split("T")[0], // Format date as yyyy-mm-dd
-          value: req.body.value,
-          member_id: req.body.member,
-          frequency: req.body.frequency,
-          category_id: req.body.category,
-          description: req.body.description,
-          account_id: req.body.account,
-          status: req.body.status,
-          periodicity: req.body.periodicity,
-          quantity: req.body.quantity
-        });
-        currentDate = calculateNextDate(currentDate, "Mensal");
-      }
-    } else {
+      const currentDate = new Date(req.body.date);
+      const nextMonth = calculateNextDate(currentDate, "Mensal");
       entries.push({
-        user_id: req.user.id,
-        date: req.body.date,
-        value: req.body.value,
-        member_id: req.body.member,
-        frequency: req.body.frequency,
-        category_id: req.body.category,
-        description: req.body.description,
-        account_id: req.body.account,
-        status: req.body.status,
+        date: nextMonth.toISOString().split('T')[0], // Formatar a data como yyyy-mm-dd
+        incoming_id: incoming.id
       });
     }
 
-    const { error } = await supabase.from("incomings").insert(entries);
+    const { error } = await supabase.from("queue").insert(entries);
 
     if (error) throw error;
 

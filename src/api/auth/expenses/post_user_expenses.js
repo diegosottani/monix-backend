@@ -1,6 +1,5 @@
 import { supabase } from '../../../init.js';
 import { calculateNextDate } from '../../../utils/calculateNextDate.js';
-import { untilEndYear } from '../../../utils/untilEndYear.js';
 
 export const post_user_expenses = async (req, res) => {
   try {
@@ -29,7 +28,7 @@ export const post_user_expenses = async (req, res) => {
       account_id: req.body.account,
       card_id: req.body.card,
       status: req.body.status,
-      payment_confirmed: req.body.frequency == "Nao recorrente" ? true : false
+      payment_confirmed: req.body.hasOwnProperty('frequency') ? (req.body.frequency == "Nao recorrente" ? true : false) : undefined
     }).select('id');
 
     if (errorExpense) throw errorExpense;

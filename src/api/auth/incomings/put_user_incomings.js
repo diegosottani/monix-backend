@@ -5,16 +5,17 @@ export const put_user_incomings = async (req, res) => {
     const incomingsId = req.params.id;
 
     const updatedIncomings = {
-        date: req.body.date,
-        value: req.body.value,
-        member_id: req.body.member,
-        frequency: req.body.frequency,
-        category_id: req.body.category,
-        description: req.body.description,
-        account_id: req.body.account,
-        status: req.body.status,
-        periodicity: req.body.periodicity || null,
-        quantity: req.body.quantity || null
+      date: req.body.date,
+      value: req.body.value,
+      member_id: req.body.member,
+      frequency: req.body.frequency,
+      category_id: req.body.category,
+      description: req.body.description,
+      account_id: req.body.account,
+      status: req.body.status,
+      periodicity: req.body.periodicity,
+      quantity: req.body.quantity,
+      payment_confirmed: req.body.payment_confirmed
     }
 
     const { error } = await supabase
