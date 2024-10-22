@@ -53,7 +53,7 @@ export const post_user_expenses = async (req, res) => {
       });
     }
 
-    const { error } = await supabase.from('queue').insert(entries);
+    const { error } = await supabase.from('expenses_queue').insert(entries);
 
     if (error) throw error;
 
