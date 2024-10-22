@@ -10,7 +10,6 @@ export const post_user_incomings = async (req, res) => {
       || !req.body.frequency 
       || !req.body.category
       || !req.body.account
-      || !req.body.status
     ) {
       return res.status(400).json({ error: 'É necessário preencher todos os campos' });
     }
